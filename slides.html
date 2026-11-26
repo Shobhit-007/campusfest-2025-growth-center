@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CampusFest 2025 — Sponsorship Growth Strategy</title>
+<style>
+@page { size: 11in 8.5in; margin: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #cbd5e1; color: #0f172a; }
+
+.slide {
+  width: 11in; height: 8.5in;
+  background: #fff;
+  position: relative; overflow: hidden;
+  page-break-after: always;
+  margin: 20px auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,.12);
+}
+@media print {
+  body { background: #fff; margin: 0; padding: 0; }
+  .slide { margin: 0; box-shadow: none; page-break-inside: avoid; width: 100%; height: 100%; }
+  .no-print { display: none; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+}
+
+/* ───── HEADER BAR (full-bleed) ───── */
+.hdr {
+  position: absolute; top: 0; left: 0; right: 0; height: 82px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 40%, #2563eb 100%);
+  color: #fff; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 44px;
+  z-index: 2;
+}
+.hdr::after {
+  content: ''; position: absolute; right: -30px; top: -30px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: rgba(255,255,255,.06);
+}
+.hdr::before {
+  content: ''; position: absolute; left: 200px; bottom: -20px;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(255,255,255,.04);
+}
+.hdr-left { position: relative; z-index: 1; }
+.hdr-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; opacity: .7; margin-bottom: 4px; }
+.hdr-title { font-size: 26px; font-weight: 800; letter-spacing: -0.3px; }
+.hdr-right { text-align: right; position: relative; z-index: 1; }
+.hdr-name { font-size: 14px; font-weight: 700; }
+.hdr-detail { font-size: 11px; opacity: .7; margin-top: 2px; }
+
+/* ───── BODY BELOW HEADER ───── */
+.body { position: absolute; top: 82px; left: 0; right: 0; bottom: 36px; padding: 18px 40px 0; overflow: hidden; }
+
+/* ───── FOOTER BAR ───── */
+.ftr {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 36px;
+  background: #f1f5f9; border-top: 1px solid #e2e8f0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 44px; font-size: 10px; color: #94a3b8;
+}
+.ftr a { color: #2563eb; text-decoration: none; font-weight: 600; }
+
+/* ───── 2-COLUMN LAYOUT ───── */
+.cols { display: flex; gap: 28px; height: 100%; }
+.col-l { flex: 0 0 57%; display: flex; flex-direction: column; }
+.col-r { flex: 1; display: flex; flex-direction: column; }
+
+/* ───── SECTION LABEL ───── */
+.sec { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: #1e40af; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 2px solid #dbeafe; }
+
+/* ───── FUNNEL BARS ───── */
+.funnel { margin-bottom: 14px; }
+.f-row { display: flex; align-items: center; margin-bottom: 7px; }
+.f-lbl { width: 108px; font-size: 11px; color: #475569; text-align: right; padding-right: 12px; flex-shrink: 0; font-weight: 600; }
+.f-bar {
+  height: 36px; border-radius: 8px; display: flex; align-items: center; padding: 0 14px;
+  font-size: 12px; font-weight: 700; color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.f-bar .n { margin-left: auto; font-size: 14px; font-weight: 800; }
+
+/* ───── TABLES ───── */
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; padding: 7px 10px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: #64748b; border-bottom: 2px solid #e2e8f0; font-weight: 700; }
+td { padding: 7px 10px; border-bottom: 1px solid #f1f5f9; color: #334155; font-size: 11px; }
+tr:last-child td { border-bottom: none; }
+.row-hl td { font-weight: 700; color: #0f172a; background: #eff6ff; }
+
+/* ───── STAT CARDS ───── */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.stat {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border: 2px solid #93c5fd; border-radius: 12px;
+  padding: 14px 10px; text-align: center;
+}
+.stat-v { font-size: 26px; font-weight: 800; color: #1d4ed8; line-height: 1.1; }
+.stat-l { font-size: 10px; color: #475569; text-transform: uppercase; letter-spacing: 0.7px; margin-top: 4px; font-weight: 700; }
+.stat-green { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-color: #6ee7b7; }
+.stat-green .stat-v { color: #059669; }
+.stat-amber { background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fcd34d; }
+.stat-amber .stat-v { color: #d97706; }
+
+/* ───── CALLOUT BOXES ───── */
+.callout { border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; border-left: 4px solid; }
+.callout-blue { background: #eff6ff; border-color: #2563eb; }
+.callout-green { background: #f0fdf4; border-color: #16a34a; }
+.callout-amber { background: #fffbeb; border-color: #d97706; }
+.callout-red { background: #fef2f2; border-color: #dc2626; }
+.callout-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.callout-blue .callout-title { color: #1d4ed8; }
+.callout-green .callout-title { color: #16a34a; }
+.callout-amber .callout-title { color: #d97706; }
+.callout-red .callout-title { color: #dc2626; }
+
+/* ───── BULLET LIST ───── */
+.bl { list-style: none; }
+.bl li { font-size: 11px; color: #334155; padding: 3px 0 3px 16px; position: relative; line-height: 1.5; }
+.bl li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; }
+.bl li strong { color: #0f172a; }
+.bl-green li::before { background: #16a34a; }
+.bl-red li::before { background: #dc2626; }
+
+/* ───── STRATEGY CARDS (Slide 2) ───── */
+.scard {
+  display: flex; gap: 12px; padding: 10px 14px; margin-bottom: 6px;
+  border-radius: 10px; border: 1px solid #e2e8f0; background: #fff;
+}
+.scard.top { background: linear-gradient(135deg, #eff6ff, #dbeafe); border: 2px solid #93c5fd; }
+.scard.dim { opacity: .7; }
+.s-rank {
+  width: 32px; height: 32px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800; color: #fff; margin-top: 2px;
+}
+.s-rank.r1 { background: linear-gradient(135deg, #1e3a8a, #2563eb); }
+.s-rank.r2 { background: linear-gradient(135deg, #0c4a6e, #0ea5e9); }
+.s-rank.r3 { background: linear-gradient(135deg, #065f46, #10b981); }
+.s-rank.r4 { background: #94a3b8; }
+.s-rank.r5 { background: #94a3b8; }
+.s-body { flex: 1; }
+.s-head { display: flex; align-items: center; gap: 6px; }
+.s-name { font-size: 12px; font-weight: 700; color: #0f172a; }
+.s-ice { font-size: 11px; font-weight: 700; color: #d97706; }
+.badge { display: inline-block; background: #dc2626; color: #fff; font-size: 8px; font-weight: 800; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.s-desc { font-size: 10px; color: #64748b; line-height: 1.5; margin-top: 2px; }
+.s-desc strong { color: #334155; }
+.s-meta { display: flex; gap: 16px; margin-top: 3px; font-size: 10px; color: #94a3b8; }
+.s-meta .v { color: #059669; font-weight: 700; }
+
+/* ───── VERDICT BOXES ───── */
+.vbox { border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+.vbox.go { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.vbox.no { background: #fef2f2; border: 1px solid #fecaca; }
+.vbox-t { font-size: 11px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+.vbox.go .vbox-t { color: #16a34a; }
+.vbox.no .vbox-t { color: #dc2626; }
+.vbox li { font-size: 10px; color: #475569; line-height: 1.6; }
+
+/* ───── THRESHOLD TABLE (Slide 3) ───── */
+.ttable th { font-size: 9px; padding: 6px 7px; }
+.ttable td { font-size: 10px; padding: 6px 7px; line-height: 1.4; }
+.ttable .sc { font-weight: 700; color: #0f172a; }
+.g { color: #16a34a; font-weight: 600; }
+.a { color: #d97706; font-weight: 600; }
+.r { color: #dc2626; font-weight: 600; }
+
+/* ───── PILL INDICATORS ───── */
+.pills { display: flex; gap: 8px; margin: 10px 0; }
+.pill { flex: 1; text-align: center; border-radius: 10px; padding: 10px 6px; background: linear-gradient(135deg, #f8fafc, #f1f5f9); border: 1px solid #e2e8f0; }
+.pill-v { font-size: 16px; font-weight: 800; color: #d97706; }
+.pill-l { font-size: 8px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; font-weight: 700; }
+
+/* ───── MODULE CARDS (Slide 3) ───── */
+.mods { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.mod { border-radius: 10px; padding: 12px 14px; border: 1px solid #e2e8f0; background: #f8fafc; }
+.mod-icon { font-size: 18px; margin-bottom: 3px; }
+.mod-t { font-size: 11px; font-weight: 700; color: #0f172a; margin-bottom: 3px; }
+.mod-d { font-size: 9px; color: #64748b; line-height: 1.5; }
+
+/* ───── DECORATIVE CIRCLES ───── */
+.deco-circle {
+  position: absolute; border-radius: 50%; z-index: 0;
+  background: radial-gradient(circle, rgba(37,99,235,.04), rgba(37,99,235,.01));
+  border: 1px solid rgba(37,99,235,.04);
+}
+
+/* ───── SLIDE NUMBER BADGE ───── */
+.slide-num {
+  position: absolute; top: 92px; right: 40px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, #dbeafe, #eff6ff);
+  border: 2px solid #93c5fd;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800; color: #1d4ed8;
+  z-index: 3;
+}
+
+/* ───── BIG CASH NUMBER ───── */
+.big-cash { font-size: 30px; font-weight: 800; color: #059669; text-align: center; margin: 4px 0 8px; letter-spacing: -0.5px; }
+
+/* ───── ROI BANNER ───── */
+.roi-banner {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: #fff; border-radius: 10px; padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-around; margin-top: 8px;
+  text-align: center;
+}
+.roi-item .roi-v { font-size: 20px; font-weight: 800; }
+.roi-item .roi-l { font-size: 9px; opacity: .8; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ───── DEMO BOX ───── */
+.demo-box {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border: 2px solid #7dd3fc; border-radius: 10px;
+  padding: 12px 14px;
+}
+.demo-row { font-size: 10px; margin-bottom: 4px; color: #334155; }
+.demo-row .who { font-weight: 700; color: #0369a1; }
+.demo-row .ai { font-weight: 700; color: #059669; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 1 — HOW HIGH CAN YOU AIM?
+     ══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="deco-circle" style="width:220px;height:220px;right:-60px;bottom:40px;"></div>
+  <div class="deco-circle" style="width:140px;height:140px;left:380px;bottom:-40px;"></div>
+
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="hdr-tag">Slide 1 of 3 · Challenge B</div>
+      <div class="hdr-title">Sponsorship Target: ₹35L+ from 35+ Partners</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-name">Shobhit Kumar</div>
+      <div class="hdr-detail">23HS10050 · IIT KGP</div>
+    </div>
+  </div>
+
+  <div class="slide-num">1</div>
+
+  <div class="body">
+    <div class="cols">
+      <!-- LEFT COLUMN -->
+      <div class="col-l">
+        <div class="sec">Quantitative Funnel Model</div>
+        <div class="funnel">
+          <div class="f-row">
+            <div class="f-lbl">Target Brands</div>
+            <div class="f-bar" style="width:100%;background:linear-gradient(90deg,#1e40af,#3b82f6);">5 industries <span class="n">180</span></div>
+          </div>
+          <div class="f-row">
+            <div class="f-lbl">Qualified</div>
+            <div class="f-bar" style="width:72%;background:linear-gradient(90deg,#047857,#10b981);">33% rate <span class="n">60</span></div>
+          </div>
+          <div class="f-row">
+            <div class="f-lbl">Opportunities</div>
+            <div class="f-bar" style="width:69%;background:linear-gradient(90deg,#b45309,#f59e0b);">97% rate <span class="n">58</span></div>
+          </div>
+          <div class="f-row">
+            <div class="f-lbl">Confirmed</div>
+            <div class="f-bar" style="width:42%;background:linear-gradient(90deg,#c2410c,#f97316);">41% win <span class="n">24</span></div>
+          </div>
+        </div>
+        <div class="big-cash">₹22,40,000 Cash Collected</div>
+
+        <div class="sec">Active Pipeline (Closeable Before Festival)</div>
+        <table>
+          <tr><th>Stage</th><th>Deals</th><th>Value</th><th>Est. Close</th><th>Expected</th></tr>
+          <tr><td>Negotiating</td><td>8</td><td>₹7.2L</td><td>65%</td><td>₹4.7L</td></tr>
+          <tr><td>Proposal Sent</td><td>6</td><td>₹3.3L</td><td>45%</td><td>₹1.5L</td></tr>
+          <tr class="row-hl"><td>Pipeline Total</td><td>14</td><td>₹10.5L</td><td>—</td><td>₹6.2L</td></tr>
+        </table>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-r">
+        <div class="sec">City: Bangalore</div>
+        <ul class="bl" style="margin-bottom:12px;">
+          <li><strong>5,000+ startups</strong> — highest density in India</li>
+          <li>Major consumer brands with campus marketing budgets</li>
+          <li>Premium metro · Strong college fest culture</li>
+        </ul>
+
+        <div class="sec">Base Case vs Stretch</div>
+        <div class="stats">
+          <div class="stat"><div class="stat-v">31</div><div class="stat-l">Base Partners</div></div>
+          <div class="stat stat-green"><div class="stat-v">35+</div><div class="stat-l">Stretch Partners</div></div>
+          <div class="stat"><div class="stat-v">₹28.6L</div><div class="stat-l">Base Cash</div></div>
+          <div class="stat stat-green"><div class="stat-v">₹35L+</div><div class="stat-l">Stretch Cash</div></div>
+        </div>
+
+        <div class="sec">Sponsor Selection Criteria</div>
+        <ul class="bl" style="margin-bottom:12px;">
+          <li>Brand-audience fit with 18-25yr demographic</li>
+          <li>Cash sponsorship (not in-kind only)</li>
+          <li>Industry diversification (no sector &gt;30%)</li>
+        </ul>
+
+        <div class="callout callout-blue">
+          <div class="callout-title">Key Evidence</div>
+          <ul class="bl">
+            <li>Avg deal <strong>₹93K</strong>, range ₹35K–₹2L</li>
+            <li><strong>Beardo ₹2L</strong> — premium appetite exists</li>
+            <li>Warm channels: <strong>90-95% reply rate</strong></li>
+            <li>Qualified exceeded target (<strong>60 vs 55</strong>)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ftr">
+    <span>CampusFest 2025 · Sponsorship Growth Strategy</span>
+    <span>Shobhit Kumar · 23HS10050 · IIT KGP</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 2 — WHERE WILL YOU PLACE YOUR BETS?
+     ══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="deco-circle" style="width:200px;height:200px;right:-50px;top:120px;"></div>
+  <div class="deco-circle" style="width:120px;height:120px;left:300px;bottom:-30px;"></div>
+
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="hdr-tag">Slide 2 of 3 · ICE Framework</div>
+      <div class="hdr-title">5 Strategies Ranked by ICE Framework</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-name" style="font-size:12px;">Impact + Confidence + Ease</div>
+      <div class="hdr-detail">Each scored 1-10 · Higher = do first</div>
+    </div>
+  </div>
+
+  <div class="slide-num">2</div>
+
+  <div class="body">
+    <div class="cols">
+      <!-- LEFT COLUMN -->
+      <div class="col-l">
+        <div class="sec">Strategies (Highest ICE First)</div>
+
+        <div class="scard top">
+          <div class="s-rank r1">1</div>
+          <div class="s-body">
+            <div class="s-head">
+              <span class="s-name">Close Negotiating Deals</span>
+              <span class="s-ice">ICE: 28</span>
+              <span class="badge">Top Priority</span>
+            </div>
+            <div class="s-desc">Sprint to close 8 deals (₹7.2L). Daily follow-ups, flexible terms, deadline urgency.</div>
+            <div class="s-meta"><span class="v">+₹4.7L, +5 partners</span> <span>Budget: ₹0</span> <span>This week</span></div>
+          </div>
+        </div>
+
+        <div class="scard">
+          <div class="s-rank r2">2</div>
+          <div class="s-body">
+            <div class="s-head">
+              <span class="s-name">Alumni &amp; Warm Intro Expansion</span>
+              <span class="s-ice">ICE: 24</span>
+            </div>
+            <div class="s-desc">IIT KGP alumni + partners for 15-20 intros. <strong>90% reply</strong> vs 17% email.</div>
+            <div class="s-meta"><span class="v">+₹3L, +3-4 partners</span> <span>Budget: ₹5K</span> <span>Week 1-2</span></div>
+          </div>
+        </div>
+
+        <div class="scard">
+          <div class="s-rank r3">3</div>
+          <div class="s-body">
+            <div class="s-head">
+              <span class="s-name">LinkedIn ABM Targeting</span>
+              <span class="s-ice">ICE: 23</span>
+            </div>
+            <div class="s-desc">Personalized outreach to CMOs at 20 brands. <strong>61% reply</strong> = 3.6x email.</div>
+            <div class="s-meta"><span class="v">+₹2.5L, +3 partners</span> <span>Budget: ₹3K</span> <span>Week 1-2</span></div>
+          </div>
+        </div>
+
+        <div class="scard dim">
+          <div class="s-rank r4">4</div>
+          <div class="s-body">
+            <div class="s-head">
+              <span class="s-name">Win-Back Lost Deals</span>
+              <span class="s-ice">ICE: 18</span>
+            </div>
+            <div class="s-desc">Re-approach 3 lost: Daybreak Studio ₹1.25L, Evergreen Collective ₹1.35L, Daybreak Collective ₹1.25L.</div>
+            <div class="s-meta"><span class="v">+₹1.5L, +1-2</span> <span>Budget: ₹0</span> <span>Week 1</span></div>
+          </div>
+        </div>
+
+        <div class="scard dim">
+          <div class="s-rank r5">5</div>
+          <div class="s-body">
+            <div class="s-head">
+              <span class="s-name">Inbound Content + Partner Form</span>
+              <span class="s-ice">ICE: 17</span>
+            </div>
+            <div class="s-desc">Landing page + optimize form (100% reply rate, needs volume).</div>
+            <div class="s-meta"><span class="v">+₹1.5L, +2</span> <span>Budget: ₹2K</span> <span>Week 1-3</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-r">
+        <div class="sec">Total Expected Impact</div>
+        <div class="stats" style="margin-bottom:14px;">
+          <div class="stat stat-green"><div class="stat-v">₹13.2L</div><div class="stat-l">Additional Revenue</div></div>
+          <div class="stat stat-amber"><div class="stat-v">14+</div><div class="stat-l">New Partners</div></div>
+        </div>
+
+        <div class="vbox go">
+          <div class="vbox-t">✓ Double Down On</div>
+          <ul class="bl bl-green">
+            <li>Close pipeline first — <strong>zero cost, highest certainty</strong></li>
+            <li>Warm channels (90%+) over cold (17%)</li>
+            <li>Top 3 = <strong>₹10.2L of ₹13.2L</strong> (77%)</li>
+          </ul>
+        </div>
+
+        <div class="vbox no">
+          <div class="vbox-t">✗ Avoid</div>
+          <ul class="bl bl-red">
+            <li>Cold email blasts (17% reply, 7 opt-outs)</li>
+            <li>Paid listing platforms</li>
+            <li>In-kind only sponsors</li>
+            <li>Untargeted social outreach</li>
+          </ul>
+        </div>
+
+        <div class="roi-banner">
+          <div class="roi-item"><div class="roi-v">₹10K</div><div class="roi-l">Investment</div></div>
+          <div class="roi-item" style="font-size:24px;font-weight:800;">→</div>
+          <div class="roi-item"><div class="roi-v">₹13.2L</div><div class="roi-l">Return</div></div>
+          <div class="roi-item" style="font-size:24px;font-weight:800;">→</div>
+          <div class="roi-item"><div class="roi-v">132×</div><div class="roi-l">ROI</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ftr">
+    <span>CampusFest 2025 · Sponsorship Growth Strategy</span>
+    <span>Shobhit Kumar · 23HS10050 · IIT KGP</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDE 3 — HOW WILL YOU KNOW WHAT'S WORKING?
+     ══════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div class="deco-circle" style="width:180px;height:180px;right:-40px;bottom:60px;"></div>
+  <div class="deco-circle" style="width:100px;height:100px;left:500px;top:100px;"></div>
+
+  <div class="hdr">
+    <div class="hdr-left">
+      <div class="hdr-tag">Slide 3 of 3 · Measurement</div>
+      <div class="hdr-title">Measure, Diagnose, Adapt — Before It's Too Late</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-name">Scale / Change / Stop</div>
+      <div class="hdr-detail">Thresholds for each strategy</div>
+    </div>
+  </div>
+
+  <div class="slide-num">3</div>
+
+  <div class="body">
+    <div class="cols">
+      <!-- LEFT COLUMN -->
+      <div class="col-l">
+        <div class="sec">Decision Thresholds</div>
+        <table class="ttable">
+          <tr>
+            <th style="width:120px;">Strategy</th>
+            <th>Critical Variable</th>
+            <th style="color:#16a34a;">Scale ✓</th>
+            <th style="color:#d97706;">Change ⚠</th>
+            <th style="color:#dc2626;">Stop ✗</th>
+          </tr>
+          <tr>
+            <td class="sc">1. Close Deals</td>
+            <td>Days since activity</td>
+            <td class="g">3+ close Wk1 → extend</td>
+            <td class="a">10% discount</td>
+            <td class="r">0 in 5d → redirect</td>
+          </tr>
+          <tr>
+            <td class="sc">2. Alumni</td>
+            <td># intros received</td>
+            <td class="g">&gt;10, &gt;60% mtg → 2x</td>
+            <td class="a">&lt;30% mtg → fix pitch</td>
+            <td class="r">&lt;3 in 7d → stop</td>
+          </tr>
+          <tr>
+            <td class="sc">3. LinkedIn</td>
+            <td>Reply rate (10 msgs)</td>
+            <td class="g">&gt;50% → 30 brands</td>
+            <td class="a">30-50% → A/B test</td>
+            <td class="r">&lt;30% → stop</td>
+          </tr>
+          <tr>
+            <td class="sc">4. Win-Back</td>
+            <td>Response in 48h</td>
+            <td class="g">1/3 positive → more</td>
+            <td class="a">Revise terms</td>
+            <td class="r">48h silence → stop</td>
+          </tr>
+          <tr>
+            <td class="sc">5. Inbound</td>
+            <td>Submissions/day</td>
+            <td class="g">&gt;2/day → 2x budget</td>
+            <td class="a">retarget ads</td>
+            <td class="r">&lt;3 in 7d → stop</td>
+          </tr>
+        </table>
+
+        <div class="sec" style="margin-top:14px;">Leading Indicators (Daily Watch)</div>
+        <div class="pills">
+          <div class="pill"><div class="pill-v">5+</div><div class="pill-l">Confirms/Wk</div></div>
+          <div class="pill"><div class="pill-v">10+</div><div class="pill-l">Intros</div></div>
+          <div class="pill"><div class="pill-v">↑</div><div class="pill-l">Pipeline</div></div>
+          <div class="pill"><div class="pill-v">&lt;5d</div><div class="pill-l">Avg Stage</div></div>
+          <div class="pill"><div class="pill-v">₹35L</div><div class="pill-l">Target Delta</div></div>
+        </div>
+
+        <div class="callout callout-amber">
+          <div class="callout-title">⚠ Pivot Trigger</div>
+          <div style="font-size:11px;color:#92400e;line-height:1.5;"><strong>Day 5, zero confirmations</strong> from Strategies 1-2 → consolidate all effort into <strong>LinkedIn ABM</strong> (Strategy 3) as last high-ROI channel with time to convert before April 12.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-r">
+        <div class="sec">Growth Center Dashboard</div>
+        <div class="mods">
+          <div class="mod">
+            <div class="mod-icon">📊</div>
+            <div class="mod-t">Dashboard</div>
+            <div class="mod-d">Funnel tracking, KPIs, target vs actual meters, pipeline by stage</div>
+          </div>
+          <div class="mod">
+            <div class="mod-icon">📋</div>
+            <div class="mod-t">Campaign Mgmt</div>
+            <div class="mod-d">Status, budget, notes. Kanban task board with owners & deadlines</div>
+          </div>
+          <div class="mod">
+            <div class="mod-icon">🎯</div>
+            <div class="mod-t">Opportunities</div>
+            <div class="mod-d">58 deals — sort, filter, edit stage & values in-place</div>
+          </div>
+          <div class="mod">
+            <div class="mod-icon">🤖</div>
+            <div class="mod-t">AI Analyst</div>
+            <div class="mod-d">Natural-language Q&A grounded in actual sponsor data</div>
+          </div>
+        </div>
+
+        <div class="sec">Chatbot Capabilities</div>
+        <ul class="bl" style="margin-bottom:12px;">
+          <li>Answers from <strong>actual data</strong>, not generic AI</li>
+          <li>Compare: <em>"Email vs LinkedIn?"</em></li>
+          <li>Diagnose: <em>"Where are bottlenecks?"</em></li>
+          <li>Recommend: <em>"Which deals first?"</em></li>
+          <li>Brand lookup: <em>"About Beardo"</em></li>
+          <li>Acknowledges data limits honestly</li>
+        </ul>
+
+        <div class="demo-box">
+          <div style="font-size:11px;font-weight:800;color:#0369a1;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Demo Workflow</div>
+          <div class="demo-row"><span class="who">User:</span> "On track for 28 partnerships?"</div>
+          <div class="demo-row"><span class="ai">AI:</span> Analyzes 24 confirmed + 14 pipeline → projects 29-30</div>
+          <div class="demo-row"><span class="who">User:</span> "Which to call today?"</div>
+          <div class="demo-row"><span class="ai">AI:</span> Lists 3 top negotiating deals by value & urgency</div>
+        </div>
+
+        <div style="margin-top:10px; text-align:center; padding:10px; background:linear-gradient(135deg,#eff6ff,#dbeafe); border-radius:10px; border:2px solid #93c5fd;">
+          <div style="font-size:9px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px;">Live Product Link</div>
+          <div style="font-size:13px;font-weight:700;color:#1d4ed8;">shobhit-007.github.io/campusfest-2025-growth-center</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ftr">
+    <span>CampusFest 2025 · Sponsorship Growth Strategy</span>
+    <a href="https://shobhit-007.github.io/campusfest-2025-growth-center/" target="_blank">shobhit-007.github.io/campusfest-2025-growth-center</a>
+  </div>
+</div>
+
+<p class="no-print" style="text-align:center;margin:20px;font-size:13px;color:#64748b;">
+  Press <strong>Ctrl+P</strong> → Save as PDF → Background graphics: <strong>ON</strong> → Layout: <strong>Landscape</strong>
+</p>
+
+</body>
+</html>
