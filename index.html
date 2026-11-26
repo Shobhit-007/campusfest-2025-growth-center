@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusFest 2025 — Sponsorship Growth Center</title>
+<style>
+:root {
+  --surface-0: #111111;
+  --surface-1: #191919;
+  --surface-2: #232323;
+  --surface-3: #2d2d2d;
+  --border: #333333;
+  --text-primary: #efefef;
+  --text-secondary: #9c9c9c;
+  --text-muted: #666666;
+  --series-1: #338ced;
+  --series-2: #e76624;
+  --series-3: #00a888;
+  --series-4: #d28e05;
+  --series-5: #e24d8b;
+  --series-6: #0aac23;
+  --series-7: #9887ef;
+  --series-8: #eb6263;
+  --status-good: #0aac23;
+  --status-warn: #d28e05;
+  --status-serious: #e76624;
+  --status-critical: #eb6263;
+  --accent: #338ced;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--surface-0); color: var(--text-primary); line-height: 1.5; min-height: 100vh; }
+a { color: var(--accent); text-decoration: none; }
+
+/* Header */
+.app-header { background: var(--surface-1); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.app-header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+.app-header h1 span { color: var(--accent); }
+.app-header .subtitle { font-size: 12px; color: var(--text-secondary); }
+
+/* Tabs */
+.tab-bar { background: var(--surface-1); border-bottom: 1px solid var(--border); display: flex; gap: 0; overflow-x: auto; }
+.tab-btn { background: none; border: none; color: var(--text-secondary); font: inherit; font-size: 13px; font-weight: 500; padding: 12px 20px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s; }
+.tab-btn:hover { color: var(--text-primary); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-panel { display: none; padding: 24px; max-width: 1400px; margin: 0 auto; }
+.tab-panel.active { display: block; }
+
+/* KPI Row */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.kpi-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; }
+.kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-secondary); margin-bottom: 4px; }
+.kpi-value { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.kpi-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.kpi-delta { font-size: 12px; font-weight: 600; }
+.kpi-delta.up { color: var(--status-good); }
+.kpi-delta.down { color: var(--status-critical); }
+.kpi-delta.warn { color: var(--status-warn); }
+
+/* Grid */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+@media (max-width: 900px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+/* Card */
+.card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.card-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); margin-bottom: 16px; }
+
+/* SVG Charts */
+.chart-container { width: 100%; overflow-x: auto; }
+.chart-container svg { display: block; }
+.chart-tooltip { position: fixed; background: var(--surface-3); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 12px; color: var(--text-primary); pointer-events: none; z-index: 1000; opacity: 0; transition: opacity .12s; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+.chart-tooltip.visible { opacity: 1; }
+
+/* Table */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th { text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-secondary); border-bottom: 1px solid var(--border); font-weight: 600; cursor: default; white-space: nowrap; }
+.data-table th.sortable { cursor: pointer; }
+.data-table th.sortable:hover { color: var(--text-primary); }
+.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--surface-3); vertical-align: middle; }
+.data-table tr:hover td { background: rgba(51,140,237,.06); }
+
+/* Badges / Pills */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+.badge-confirmed { background: rgba(10,172,35,.15); color: #0aac23; }
+.badge-negotiating { background: rgba(51,140,237,.15); color: #338ced; }
+.badge-proposal { background: rgba(210,142,5,.15); color: #d28e05; }
+.badge-contacted { background: rgba(152,135,239,.15); color: #9887ef; }
+.badge-prospecting { background: rgba(156,156,156,.15); color: #9c9c9c; }
+.badge-lost { background: rgba(235,98,99,.15); color: #eb6263; }
+.badge-withdrawn { background: rgba(102,102,102,.15); color: #666; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 6px; font: inherit; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-primary); transition: background .12s; }
+.btn:hover { background: var(--surface-3); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover { background: #2670c4; }
+.btn-sm { padding: 4px 10px; font-size: 12px; }
+
+/* Form controls */
+select, input[type="text"], input[type="number"], input[type="date"], textarea {
+  background: var(--surface-1); border: 1px solid var(--border); color: var(--text-primary);
+  font: inherit; font-size: 13px; padding: 6px 10px; border-radius: 4px; outline: none;
+}
+select:focus, input:focus, textarea:focus { border-color: var(--accent); }
+textarea { resize: vertical; min-height: 60px; }
+
+/* Filter bar */
+.filter-bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-bar label { font-size: 12px; color: var(--text-secondary); }
+.filter-bar select { min-width: 160px; }
+
+/* Chatbot */
+.chat-container { display: flex; gap: 20px; height: calc(100vh - 160px); min-height: 500px; }
+.chat-main { flex: 1; display: flex; flex-direction: column; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.chat-msg { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.6; word-wrap: break-word; }
+.chat-msg.user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 4px; }
+.chat-msg.bot { align-self: flex-start; background: var(--surface-3); border-bottom-left-radius: 4px; }
+.chat-msg.bot strong { color: var(--accent); }
+.chat-msg.bot .data-point { color: var(--series-4); font-weight: 600; }
+.chat-input-row { display: flex; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); }
+.chat-input-row input { flex: 1; }
+.chat-sidebar { width: 280px; flex-shrink: 0; }
+.chat-sidebar .card { height: 100%; overflow-y: auto; }
+.suggested-q { display: block; width: 100%; text-align: left; background: var(--surface-1); border: 1px solid var(--border); color: var(--text-primary); font-size: 12px; padding: 8px 12px; border-radius: 6px; margin-bottom: 6px; cursor: pointer; transition: background .12s; }
+.suggested-q:hover { background: var(--surface-3); border-color: var(--accent); }
+@media (max-width: 800px) {
+  .chat-container { flex-direction: column-reverse; height: auto; }
+  .chat-sidebar { width: 100%; }
+  .chat-main { min-height: 400px; }
+}
+
+/* Task kanban */
+.task-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .task-cols { grid-template-columns: 1fr; } }
+.task-col-header { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-secondary); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.task-col-header .count { background: var(--surface-3); padding: 1px 7px; border-radius: 10px; font-size: 11px; }
+.task-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 8px; }
+.task-card .task-title { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+.task-card .task-meta { font-size: 11px; color: var(--text-secondary); display: flex; gap: 10px; flex-wrap: wrap; }
+.task-card .priority-high { border-left: 3px solid var(--status-critical); }
+.task-card .priority-medium { border-left: 3px solid var(--status-warn); }
+.task-card .priority-low { border-left: 3px solid var(--status-good); }
+.task-card select { font-size: 11px; padding: 2px 4px; }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 900; display: flex; align-items: center; justify-content: center; }
+.modal-overlay.hidden { display: none; }
+.modal { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 24px; max-width: 480px; width: 90%; max-height: 80vh; overflow-y: auto; }
+.modal h3 { font-size: 16px; margin-bottom: 16px; }
+.modal .field { margin-bottom: 12px; }
+.modal .field label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+.modal .field input, .modal .field select, .modal .field textarea { width: 100%; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+
+/* Meter bars */
+.meter-row { margin-bottom: 14px; }
+.meter-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+.meter-track { height: 8px; background: var(--surface-1); border-radius: 4px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div>
+    <h1><span>CampusFest 2025</span> — Sponsorship Growth Center</h1>
+    <div class="subtitle">Shobhit Kumar &middot; 23HS10050 &middot; IIT KGP &middot; Bangalore</div>
+  </div>
+  <div style="font-size:12px;color:var(--text-muted)">Challenge B: Maximize Sponsorship Cash</div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+  <button class="tab-btn" data-tab="campaigns">Campaign Management</button>
+  <button class="tab-btn" data-tab="opportunities">Opportunities</button>
+  <button class="tab-btn" data-tab="chatbot">AI Growth Analyst</button>
+</nav>
+
+<!-- ============ DASHBOARD ============ -->
+<section id="tab-dashboard" class="tab-panel active">
+  <div class="kpi-row" id="kpi-row"></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Sponsorship Funnel</div>
+      <div class="chart-container" id="chart-funnel"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Pipeline by Stage</div>
+      <div class="chart-container" id="chart-pipeline"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Campaign Performance</div>
+    <div style="overflow-x:auto" id="campaign-table-wrap"></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Revenue by Campaign</div>
+      <div class="chart-container" id="chart-revenue-campaign"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Confirmed Deals by Industry</div>
+      <div class="chart-container" id="chart-industry"></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Cumulative Cash Collected (Jan–Apr 2025)</div>
+      <div class="chart-container" id="chart-trend"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Target vs Actual</div>
+      <div id="target-meters"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAMPAIGNS ============ -->
+<section id="tab-campaigns" class="tab-panel">
+  <div class="card" style="margin-bottom:20px">
+    <div class="card-title">Sponsor Acquisition Campaigns</div>
+    <div style="overflow-x:auto" id="campaign-mgmt-table"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <h3 style="font-size:15px;font-weight:600">Task Board</h3>
+    <button class="btn btn-primary btn-sm" onclick="openTaskModal()">+ Add Task</button>
+  </div>
+  <div class="task-cols" id="task-board"></div>
+</section>
+
+<!-- ============ OPPORTUNITIES ============ -->
+<section id="tab-opportunities" class="tab-panel">
+  <div class="kpi-row" id="opp-kpi-row"></div>
+  <div class="filter-bar">
+    <label>Stage</label><select id="opp-filter-stage"><option value="">All Stages</option></select>
+    <label>Campaign</label><select id="opp-filter-campaign"><option value="">All Campaigns</option></select>
+    <label>Owner</label><select id="opp-filter-owner"><option value="">All Owners</option></select>
+  </div>
+  <div class="card" style="overflow-x:auto">
+    <table class="data-table" id="opp-table">
+      <thead><tr>
+        <th class="sortable" data-col="brand">Brand</th>
+        <th class="sortable" data-col="stage">Stage</th>
+        <th class="sortable" data-col="proposed">Proposed (INR)</th>
+        <th class="sortable" data-col="confirmed">Confirmed (INR)</th>
+        <th class="sortable" data-col="owner">Owner</th>
+        <th>Campaign</th>
+        <th>Industry</th>
+        <th>Actions</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ CHATBOT ============ -->
+<section id="tab-chatbot" class="tab-panel">
+  <div class="chat-container">
+    <div class="chat-main">
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Ask about sponsorship performance, campaigns, pipeline..." autocomplete="off">
+        <button class="btn btn-primary" onclick="sendChat()">Send</button>
+      </div>
+    </div>
+    <div class="chat-sidebar">
+      <div class="card">
+        <div class="card-title">Suggested Questions</div>
+        <div id="suggested-questions"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tooltip element -->
+<div class="chart-tooltip" id="tooltip"></div>
+
+<!-- Task Modal -->
+<div class="modal-overlay hidden" id="task-modal">
+  <div class="modal">
+    <h3 id="task-modal-title">Add Task</h3>
+    <div class="field"><label>Title</label><input type="text" id="tm-title"></div>
+    <div class="field"><label>Owner</label>
+      <select id="tm-owner"><option>Riya Kapoor</option><option>Kabir Shah</option><option>Meera Iyer</option><option>Nisha Rao</option></select>
+    </div>
+    <div class="field"><label>Priority</label>
+      <select id="tm-priority"><option value="high">High</option><option value="medium" selected>Medium</option><option value="low">Low</option></select>
+    </div>
+    <div class="field"><label>Deadline</label><input type="date" id="tm-deadline"></div>
+    <div class="field"><label>Status</label>
+      <select id="tm-status"><option value="todo">To Do</option><option value="in-progress">In Progress</option><option value="done">Done</option></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeTaskModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveTask()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Opportunity Edit Modal -->
+<div class="modal-overlay hidden" id="opp-modal">
+  <div class="modal">
+    <h3>Edit Opportunity</h3>
+    <div class="field"><label>Brand</label><input type="text" id="om-brand" disabled></div>
+    <div class="field"><label>Stage</label>
+      <select id="om-stage">
+        <option value="prospecting">Prospecting</option><option value="contacted">Contacted</option>
+        <option value="proposal_sent">Proposal Sent</option><option value="negotiating">Negotiating</option>
+        <option value="partner_confirmed">Partner Confirmed</option><option value="lost">Lost</option>
+        <option value="withdrawn">Withdrawn</option>
+      </select>
+    </div>
+    <div class="field"><label>Proposed Value (INR)</label><input type="number" id="om-proposed"></div>
+    <div class="field"><label>Confirmed Value (INR)</label><input type="number" id="om-confirmed"></div>
+    <input type="hidden" id="om-id">
+    <div class="modal-actions">
+      <button class="btn" onclick="closeOppModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveOpp()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===========================
+// DATA
+// ===========================
+const DATA = {
+  event: { name: 'CampusFest 2025', city: 'Bangalore', dates: '12-13 Apr 2025', currency: 'INR' },
+  targets: { qualified: 55, confirmed: 28 },
+  brands: { total: 180, industries: { 'Food & Beverage': 37, 'Consumer Products': 36, 'Mobility': 36, 'Education': 35, 'Media': 35, 'Personal Care': 1 } },
+  contacts: 270,
+  qualification: { dormant: 63, qualified: 60, engaged: 28, unqualified: 21, unreviewed: 8 },
+  campaigns: [
+    { id:'SC01', name:'Brand Discovery Email', channel:'email', owner:'Kabir Shah', ownerId:'T02', sent:224, delivered:224, replied:38, meetings:7, optOut:7, opps:11, confirmedDeals:7, confirmedValue:605000 },
+    { id:'SC02', name:'Warm Partner Introductions', channel:'introduction', owner:'Riya Kapoor', ownerId:'T01', sent:10, delivered:10, replied:9, meetings:8, optOut:0, opps:9, confirmedDeals:7, confirmedValue:605000 },
+    { id:'SC03', name:'Brand Leader LinkedIn', channel:'linkedin', owner:'Riya Kapoor', ownerId:'T01', sent:55, delivered:54, replied:33, meetings:10, optOut:0, opps:12, confirmedDeals:5, confirmedValue:435000 },
+    { id:'SC04', name:'Partner Interest Form', channel:'web_inbound', owner:'Kabir Shah', ownerId:'T02', sent:18, delivered:18, replied:18, meetings:13, optOut:0, opps:7, confirmedDeals:5, confirmedValue:395000 },
+    { id:'SC05', name:'Creator Network Referrals', channel:'introduction', owner:'Nisha Rao', ownerId:'T05', sent:22, delivered:22, replied:21, meetings:15, optOut:0, opps:9, confirmedDeals:6, confirmedValue:510000 },
+    { id:'SC06', name:'Past Conversation Revival', channel:'email', owner:'Kabir Shah', ownerId:'T02', sent:44, delivered:44, replied:12, meetings:7, optOut:0, opps:10, confirmedDeals:4, confirmedValue:290000 }
+  ],
+  pipeline: [
+    { stage:'partner_confirmed', count:24, value:2240000 },
+    { stage:'negotiating', count:8, value:720000 },
+    { stage:'proposal_sent', count:6, value:330000 },
+    { stage:'contacted', count:6, value:240000 },
+    { stage:'prospecting', count:6, value:150000 },
+    { stage:'lost', count:7, value:780000 },
+    { stage:'withdrawn', count:1, value:80000 }
+  ],
+  confirmedPartners: [
+    { brand:'Beardo', value:200000, industry:'Personal Care', campaign:'Warm Partner Introductions', owner:'Riya Kapoor' },
+    { brand:'Mosaic Mobility', value:150000, industry:'Mobility', campaign:'Partner Interest Form', owner:'Riya Kapoor' },
+    { brand:'Bramble Active', value:125000, industry:'Food & Beverage', campaign:'Partner Interest Form', owner:'Nisha Rao' },
+    { brand:'Aster Living', value:125000, industry:'Consumer Products', campaign:'Warm Partner Introductions', owner:'Meera Iyer' },
+    { brand:'Juniper Foods', value:120000, industry:'Food & Beverage', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Bramble Devices', value:110000, industry:'Mobility', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Aster Learning', value:110000, industry:'Education', campaign:'Partner Interest Form', owner:'Nisha Rao' },
+    { brand:'Bramble Living', value:105000, industry:'Consumer Products', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Aster Wellness', value:105000, industry:'Mobility', campaign:'Partner Interest Form', owner:'Nisha Rao' },
+    { brand:'Harbor Beverages', value:100000, industry:'Food & Beverage', campaign:'Warm Partner Introductions', owner:'Nisha Rao' },
+    { brand:'Bramble Studio', value:95000, industry:'Media', campaign:'Warm Partner Introductions', owner:'Meera Iyer' },
+    { brand:'Aster Active', value:95000, industry:'Food & Beverage', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Bramble Learning', value:90000, industry:'Education', campaign:'Warm Partner Introductions', owner:'Riya Kapoor' },
+    { brand:'Aster Collective', value:90000, industry:'Media', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Maple Devices', value:90000, industry:'Mobility', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Bramble Pantry', value:80000, industry:'Consumer Products', campaign:'Partner Interest Form', owner:'Nisha Rao' },
+    { brand:'Aster Devices', value:80000, industry:'Mobility', campaign:'Warm Partner Introductions', owner:'Meera Iyer' },
+    { brand:'Aster Studio', value:65000, industry:'Media', campaign:'Partner Interest Form', owner:'Nisha Rao' },
+    { brand:'Aster Works', value:65000, industry:'Education', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Bramble Threads', value:60000, industry:'Food & Beverage', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Aster Threads', value:50000, industry:'Food & Beverage', campaign:'Warm Partner Introductions', owner:'Meera Iyer' },
+    { brand:'Aster Pantry', value:50000, industry:'Consumer Products', campaign:'Creator Network Referrals', owner:'Riya Kapoor' },
+    { brand:'Bramble Wellness', value:45000, industry:'Mobility', campaign:'Warm Partner Introductions', owner:'Meera Iyer' },
+    { brand:'Bramble Collective', value:35000, industry:'Consumer Products', campaign:'Partner Interest Form', owner:'Nisha Rao' }
+  ],
+  opportunities: [
+    { id:'O001', brand:'Beardo', stage:'partner_confirmed', proposed:200000, confirmed:200000, owner:'Riya Kapoor', campaign:'Warm Partner Introductions', industry:'Personal Care' },
+    { id:'O002', brand:'Beardo', stage:'negotiating', proposed:150000, confirmed:0, owner:'Riya Kapoor', campaign:'Warm Partner Introductions', industry:'Personal Care' },
+    { id:'O003', brand:'Juniper Foods', stage:'partner_confirmed', proposed:120000, confirmed:120000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Food & Beverage' },
+    { id:'O004', brand:'Mosaic Mobility', stage:'partner_confirmed', proposed:150000, confirmed:150000, owner:'Riya Kapoor', campaign:'Partner Interest Form', industry:'Mobility' },
+    { id:'O005', brand:'Harbor Beverages', stage:'partner_confirmed', proposed:100000, confirmed:100000, owner:'Nisha Rao', campaign:'Warm Partner Introductions', industry:'Food & Beverage' },
+    { id:'O006', brand:'Cobalt Learning', stage:'withdrawn', proposed:80000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Leader LinkedIn', industry:'Education' },
+    { id:'O007', brand:'Maple Devices', stage:'partner_confirmed', proposed:90000, confirmed:90000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Mobility' },
+    { id:'O008', brand:'Aster Pantry', stage:'partner_confirmed', proposed:50000, confirmed:50000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Consumer Products' },
+    { id:'O009', brand:'Aster Studio', stage:'partner_confirmed', proposed:65000, confirmed:65000, owner:'Nisha Rao', campaign:'Partner Interest Form', industry:'Media' },
+    { id:'O010', brand:'Aster Devices', stage:'partner_confirmed', proposed:80000, confirmed:80000, owner:'Meera Iyer', campaign:'Warm Partner Introductions', industry:'Mobility' },
+    { id:'O011', brand:'Aster Active', stage:'partner_confirmed', proposed:95000, confirmed:95000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Food & Beverage' },
+    { id:'O012', brand:'Aster Learning', stage:'partner_confirmed', proposed:110000, confirmed:110000, owner:'Nisha Rao', campaign:'Partner Interest Form', industry:'Education' },
+    { id:'O013', brand:'Aster Living', stage:'partner_confirmed', proposed:125000, confirmed:125000, owner:'Meera Iyer', campaign:'Warm Partner Introductions', industry:'Consumer Products' },
+    { id:'O014', brand:'Aster Collective', stage:'partner_confirmed', proposed:90000, confirmed:90000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Media' },
+    { id:'O015', brand:'Aster Wellness', stage:'partner_confirmed', proposed:105000, confirmed:105000, owner:'Nisha Rao', campaign:'Partner Interest Form', industry:'Mobility' },
+    { id:'O016', brand:'Aster Threads', stage:'partner_confirmed', proposed:50000, confirmed:50000, owner:'Meera Iyer', campaign:'Warm Partner Introductions', industry:'Food & Beverage' },
+    { id:'O017', brand:'Aster Works', stage:'partner_confirmed', proposed:65000, confirmed:65000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Education' },
+    { id:'O018', brand:'Bramble Pantry', stage:'partner_confirmed', proposed:80000, confirmed:80000, owner:'Nisha Rao', campaign:'Partner Interest Form', industry:'Consumer Products' },
+    { id:'O019', brand:'Bramble Studio', stage:'partner_confirmed', proposed:95000, confirmed:95000, owner:'Meera Iyer', campaign:'Warm Partner Introductions', industry:'Media' },
+    { id:'O020', brand:'Bramble Devices', stage:'partner_confirmed', proposed:110000, confirmed:110000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Mobility' },
+    { id:'O021', brand:'Bramble Active', stage:'partner_confirmed', proposed:125000, confirmed:125000, owner:'Nisha Rao', campaign:'Partner Interest Form', industry:'Food & Beverage' },
+    { id:'O022', brand:'Bramble Learning', stage:'partner_confirmed', proposed:90000, confirmed:90000, owner:'Riya Kapoor', campaign:'Warm Partner Introductions', industry:'Education' },
+    { id:'O023', brand:'Bramble Living', stage:'partner_confirmed', proposed:105000, confirmed:105000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Consumer Products' },
+    { id:'O024', brand:'Bramble Collective', stage:'partner_confirmed', proposed:35000, confirmed:35000, owner:'Nisha Rao', campaign:'Partner Interest Form', industry:'Consumer Products' },
+    { id:'O025', brand:'Bramble Wellness', stage:'partner_confirmed', proposed:45000, confirmed:45000, owner:'Meera Iyer', campaign:'Warm Partner Introductions', industry:'Mobility' },
+    { id:'O026', brand:'Bramble Threads', stage:'partner_confirmed', proposed:60000, confirmed:60000, owner:'Riya Kapoor', campaign:'Creator Network Referrals', industry:'Food & Beverage' },
+    { id:'O027', brand:'Bramble Works', stage:'negotiating', proposed:70000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Education' },
+    { id:'O028', brand:'Cedar Pantry', stage:'negotiating', proposed:80000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Leader LinkedIn', industry:'Consumer Products' },
+    { id:'O029', brand:'Cedar Studio', stage:'lost', proposed:65000, confirmed:0, owner:'Riya Kapoor', campaign:'Past Conversation Revival', industry:'Media' },
+    { id:'O030', brand:'Cedar Devices', stage:'lost', proposed:55000, confirmed:0, owner:'Meera Iyer', campaign:'Brand Discovery Email', industry:'Mobility' },
+    { id:'O031', brand:'Cedar Active', stage:'negotiating', proposed:80000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Leader LinkedIn', industry:'Food & Beverage' },
+    { id:'O032', brand:'Cedar Learning', stage:'proposal_sent', proposed:55000, confirmed:0, owner:'Nisha Rao', campaign:'Past Conversation Revival', industry:'Education' },
+    { id:'O033', brand:'Cedar Living', stage:'proposal_sent', proposed:80000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Consumer Products' },
+    { id:'O034', brand:'Cedar Collective', stage:'contacted', proposed:60000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Leader LinkedIn', industry:'Media' },
+    { id:'O035', brand:'Cedar Wellness', stage:'lost', proposed:40000, confirmed:0, owner:'Nisha Rao', campaign:'Past Conversation Revival', industry:'Mobility' },
+    { id:'O036', brand:'Cedar Threads', stage:'contacted', proposed:40000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Food & Beverage' },
+    { id:'O037', brand:'Cedar Works', stage:'negotiating', proposed:55000, confirmed:0, owner:'Meera Iyer', campaign:'Brand Leader LinkedIn', industry:'Education' },
+    { id:'O038', brand:'Daybreak Pantry', stage:'negotiating', proposed:65000, confirmed:0, owner:'Nisha Rao', campaign:'Past Conversation Revival', industry:'Consumer Products' },
+    { id:'O039', brand:'Daybreak Studio', stage:'lost', proposed:125000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Media' },
+    { id:'O040', brand:'Daybreak Devices', stage:'prospecting', proposed:50000, confirmed:0, owner:'Meera Iyer', campaign:'Brand Leader LinkedIn', industry:'Mobility' },
+    { id:'O041', brand:'Daybreak Active', stage:'contacted', proposed:40000, confirmed:0, owner:'Riya Kapoor', campaign:'Past Conversation Revival', industry:'Food & Beverage' },
+    { id:'O042', brand:'Daybreak Learning', stage:'proposal_sent', proposed:30000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Education' },
+    { id:'O043', brand:'Daybreak Living', stage:'proposal_sent', proposed:80000, confirmed:0, owner:'Meera Iyer', campaign:'Brand Leader LinkedIn', industry:'Consumer Products' },
+    { id:'O044', brand:'Daybreak Collective', stage:'lost', proposed:125000, confirmed:0, owner:'Nisha Rao', campaign:'Past Conversation Revival', industry:'Media' },
+    { id:'O045', brand:'Daybreak Wellness', stage:'contacted', proposed:40000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Mobility' },
+    { id:'O046', brand:'Daybreak Threads', stage:'prospecting', proposed:40000, confirmed:0, owner:'Meera Iyer', campaign:'Brand Leader LinkedIn', industry:'Food & Beverage' },
+    { id:'O047', brand:'Daybreak Works', stage:'proposal_sent', proposed:55000, confirmed:0, owner:'Nisha Rao', campaign:'Past Conversation Revival', industry:'Education' },
+    { id:'O048', brand:'Evergreen Pantry', stage:'negotiating', proposed:80000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Consumer Products' },
+    { id:'O049', brand:'Evergreen Studio', stage:'negotiating', proposed:135000, confirmed:0, owner:'Meera Iyer', campaign:'Brand Leader LinkedIn', industry:'Media' },
+    { id:'O050', brand:'Evergreen Devices', stage:'prospecting', proposed:30000, confirmed:0, owner:'Meera Iyer', campaign:'Past Conversation Revival', industry:'Mobility' },
+    { id:'O051', brand:'Evergreen Active', stage:'contacted', proposed:40000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Food & Beverage' },
+    { id:'O052', brand:'Evergreen Learning', stage:'negotiating', proposed:105000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Leader LinkedIn', industry:'Education' },
+    { id:'O053', brand:'Evergreen Living', stage:'lost', proposed:80000, confirmed:0, owner:'Nisha Rao', campaign:'Past Conversation Revival', industry:'Consumer Products' },
+    { id:'O054', brand:'Evergreen Collective', stage:'lost', proposed:135000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Media' },
+    { id:'O055', brand:'Evergreen Wellness', stage:'proposal_sent', proposed:25000, confirmed:0, owner:'Meera Iyer', campaign:'Brand Leader LinkedIn', industry:'Mobility' },
+    { id:'O056', brand:'Evergreen Threads', stage:'contacted', proposed:40000, confirmed:0, owner:'Riya Kapoor', campaign:'Past Conversation Revival', industry:'Food & Beverage' },
+    { id:'O057', brand:'Evergreen Works', stage:'prospecting', proposed:30000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Discovery Email', industry:'Education' },
+    { id:'O058', brand:'Fable Pantry', stage:'prospecting', proposed:50000, confirmed:0, owner:'Riya Kapoor', campaign:'Brand Leader LinkedIn', industry:'Consumer Products' }
+  ],
+  monthlyTrend: [
+    { month: 'Jan', date: '2025-01-31', cumulative: 120000 },
+    { month: 'Feb', date: '2025-02-28', cumulative: 820000 },
+    { month: 'Mar', date: '2025-03-31', cumulative: 1890000 },
+    { month: 'Apr', date: '2025-04-13', cumulative: 2240000 }
+  ],
+  team: [
+    { id:'T01', name:'Riya Kapoor' },
+    { id:'T02', name:'Kabir Shah' },
+    { id:'T03', name:'Meera Iyer' },
+    { id:'T05', name:'Nisha Rao' }
+  ]
+};
+
+// Load persisted opportunity edits
+function getOpps() {
+  const saved = localStorage.getItem('cf25_opps');
+  if (saved) {
+    try {
+      const edits = JSON.parse(saved);
+      return DATA.opportunities.map(o => edits[o.id] ? { ...o, ...edits[o.id] } : { ...o });
+    } catch(e) {}
+  }
+  return DATA.opportunities.map(o => ({ ...o }));
+}
+function saveOppEdit(id, changes) {
+  const saved = JSON.parse(localStorage.getItem('cf25_opps') || '{}');
+  saved[id] = { ...saved[id], ...changes };
+  localStorage.setItem('cf25_opps', JSON.stringify(saved));
+}
+
+// ===========================
+// HELPERS
+// ===========================
+function fmt(n) {
+  if (n >= 100000) return '₹' + (n / 100000).toFixed(1) + 'L';
+  if (n >= 1000) return '₹' + (n / 1000).toFixed(0) + 'K';
+  return '₹' + n.toLocaleString('en-IN');
+}
+function fmtFull(n) { return '₹' + n.toLocaleString('en-IN'); }
+function pct(n, d) { return d === 0 ? '0%' : (n / d * 100).toFixed(0) + '%'; }
+function stageBadge(s) {
+  const cls = { partner_confirmed:'confirmed', negotiating:'negotiating', proposal_sent:'proposal', contacted:'contacted', prospecting:'prospecting', lost:'lost', withdrawn:'withdrawn' };
+  const labels = { partner_confirmed:'Confirmed', negotiating:'Negotiating', proposal_sent:'Proposal Sent', contacted:'Contacted', prospecting:'Prospecting', lost:'Lost', withdrawn:'Withdrawn' };
+  return `<span class="badge badge-${cls[s] || 'prospecting'}">${labels[s] || s}</span>`;
+}
+
+// Tooltip
+const tooltip = document.getElementById('tooltip');
+function showTip(e, html) {
+  tooltip.innerHTML = html;
+  tooltip.classList.add('visible');
+  const r = tooltip.getBoundingClientRect();
+  let x = e.clientX + 12, y = e.clientY - 8;
+  if (x + r.width > window.innerWidth) x = e.clientX - r.width - 8;
+  if (y + r.height > window.innerHeight) y = e.clientY - r.height - 8;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+function hideTip() { tooltip.classList.remove('visible'); }
+
+// ===========================
+// TAB SYSTEM
+// ===========================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ===========================
+// DASHBOARD
+// ===========================
+function renderKPIs() {
+  const opps = getOpps();
+  const confirmed = opps.filter(o => o.stage === 'partner_confirmed');
+  const totalCash = confirmed.reduce((s, o) => s + o.confirmed, 0);
+  const activePipeline = opps.filter(o => !['partner_confirmed','lost','withdrawn'].includes(o.stage)).reduce((s, o) => s + o.proposed, 0);
+  const winRate = opps.length ? (confirmed.length / opps.length * 100).toFixed(0) : 0;
+  const kpis = [
+    { label:'Total Cash Collected', value: fmt(totalCash), sub: fmtFull(totalCash), delta: totalCash >= 2800000 ? 'On track' : `${fmtFull(2800000 - totalCash)} to stretch target`, deltaClass: totalCash >= 2240000 ? 'up' : 'warn' },
+    { label:'Confirmed Partners', value: confirmed.length, sub: `Target: ${DATA.targets.confirmed}`, delta: confirmed.length >= DATA.targets.confirmed ? 'Target met' : `${DATA.targets.confirmed - confirmed.length} remaining`, deltaClass: confirmed.length >= DATA.targets.confirmed ? 'up' : 'warn' },
+    { label:'Qualified Brands', value: DATA.qualification.qualified, sub: `Target: ${DATA.targets.qualified}`, delta: DATA.qualification.qualified >= DATA.targets.qualified ? 'Target exceeded' : `${DATA.targets.qualified - DATA.qualification.qualified} remaining`, deltaClass: DATA.qualification.qualified >= DATA.targets.qualified ? 'up' : 'warn' },
+    { label:'Active Pipeline', value: fmt(activePipeline), sub: `${opps.filter(o => !['partner_confirmed','lost','withdrawn'].includes(o.stage)).length} deals`, delta:'Potential upside', deltaClass:'warn' },
+    { label:'Win Rate', value: winRate + '%', sub: `${confirmed.length} of ${opps.length} opportunities`, delta: Number(winRate) >= 40 ? 'Strong' : 'Below 40%', deltaClass: Number(winRate) >= 40 ? 'up' : 'warn' }
+  ];
+  document.getElementById('kpi-row').innerHTML = kpis.map(k => `
+    <div class="kpi-card">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value">${k.value}</div>
+      <div class="kpi-sub">${k.sub}</div>
+      <div class="kpi-delta ${k.deltaClass}">${k.delta}</div>
+    </div>`).join('');
+}
+
+function renderFunnel() {
+  const steps = [
+    { label: 'Brands Targeted', value: 180, color: 'var(--series-1)' },
+    { label: 'Qualified', value: DATA.qualification.qualified, color: 'var(--series-3)' },
+    { label: 'Opportunities', value: DATA.opportunities.length, color: 'var(--series-4)' },
+    { label: 'Confirmed', value: getOpps().filter(o => o.stage === 'partner_confirmed').length, color: 'var(--series-6)' }
+  ];
+  const maxVal = steps[0].value;
+  const W = 600, barH = 36, gap = 14, padL = 120, padR = 60;
+  const H = steps.length * (barH + gap) + 20;
+  const barW = W - padL - padR;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px">`;
+  steps.forEach((s, i) => {
+    const y = i * (barH + gap) + 10;
+    const w = Math.max(barW * (s.value / maxVal), 4);
+    svg += `<text x="${padL - 8}" y="${y + barH/2 + 4}" text-anchor="end" fill="var(--text-secondary)" font-size="12">${s.label}</text>`;
+    svg += `<rect x="${padL}" y="${y}" width="${w}" height="${barH}" rx="4" fill="${s.color}" opacity="0.85"
+      onmousemove="showTip(event,'${s.label}: ${s.value}')" onmouseleave="hideTip()"/>`;
+    svg += `<text x="${padL + w + 8}" y="${y + barH/2 + 4}" fill="var(--text-primary)" font-size="13" font-weight="600">${s.value}</text>`;
+  });
+  svg += '</svg>';
+  document.getElementById('chart-funnel').innerHTML = svg;
+}
+
+function renderPipeline() {
+  const opps = getOpps();
+  const stages = ['partner_confirmed','negotiating','proposal_sent','contacted','prospecting','lost','withdrawn'];
+  const labels = { partner_confirmed:'Confirmed', negotiating:'Negotiating', proposal_sent:'Proposal Sent', contacted:'Contacted', prospecting:'Prospecting', lost:'Lost', withdrawn:'Withdrawn' };
+  const colors = { partner_confirmed:'var(--series-6)', negotiating:'var(--series-1)', proposal_sent:'var(--series-4)', contacted:'var(--series-7)', prospecting:'var(--text-muted)', lost:'var(--series-8)', withdrawn:'var(--text-muted)' };
+  const data = stages.map(s => {
+    const deals = opps.filter(o => o.stage === s);
+    return { stage: s, label: labels[s], count: deals.length, value: deals.reduce((sum, o) => sum + (o.stage === 'partner_confirmed' ? o.confirmed : o.proposed), 0), color: colors[s] };
+  });
+  const maxVal = Math.max(...data.map(d => d.value));
+  const W = 600, barH = 28, gap = 10, padL = 110, padR = 100;
+  const H = data.length * (barH + gap) + 20;
+  const barW = W - padL - padR;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px">`;
+  data.forEach((d, i) => {
+    const y = i * (barH + gap) + 10;
+    const w = maxVal > 0 ? Math.max(barW * (d.value / maxVal), 4) : 4;
+    svg += `<text x="${padL - 8}" y="${y + barH/2 + 4}" text-anchor="end" fill="var(--text-secondary)" font-size="11">${d.label}</text>`;
+    svg += `<rect x="${padL}" y="${y}" width="${w}" height="${barH}" rx="4" fill="${d.color}" opacity="0.85"
+      onmousemove="showTip(event,'${d.label}: ${d.count} deals, ${fmt(d.value)}')" onmouseleave="hideTip()"/>`;
+    svg += `<text x="${padL + w + 8}" y="${y + barH/2 + 4}" fill="var(--text-primary)" font-size="12">${fmt(d.value)} <tspan fill="var(--text-secondary)" font-size="11">(${d.count})</tspan></text>`;
+  });
+  svg += '</svg>';
+  document.getElementById('chart-pipeline').innerHTML = svg;
+}
+
+function renderCampaignTable() {
+  const cols = ['Campaign','Channel','Reach','Replies','Reply Rate','Meetings','Opportunities','Confirmed','Revenue'];
+  let html = '<table class="data-table"><thead><tr>';
+  cols.forEach(c => html += `<th>${c}</th>`);
+  html += '</tr></thead><tbody>';
+  DATA.campaigns.forEach(c => {
+    const replyRate = c.sent > 0 ? (c.replied / c.sent * 100).toFixed(0) : 0;
+    html += `<tr>
+      <td style="font-weight:500">${c.name}</td>
+      <td>${c.channel}</td>
+      <td>${c.sent}</td>
+      <td>${c.replied}</td>
+      <td><strong style="color:${Number(replyRate)>=50?'var(--status-good)':Number(replyRate)>=20?'var(--status-warn)':'var(--status-serious)'}">${replyRate}%</strong></td>
+      <td>${c.meetings}</td>
+      <td>${c.opps}</td>
+      <td>${c.confirmedDeals}</td>
+      <td>${fmt(c.confirmedValue)}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('campaign-table-wrap').innerHTML = html;
+}
+
+function renderRevenueByCampaign() {
+  const data = DATA.campaigns.map(c => ({ label: c.name.replace('Brand Discovery ','').replace('Warm Partner ','Warm ').replace('Creator Network ','Creator ').replace('Past Conversation ','Past ').replace('Partner Interest ','Inbound '), value: c.confirmedValue, full: c.name }));
+  const maxVal = Math.max(...data.map(d => d.value));
+  const W = 580, barH = 28, gap = 10, padL = 130, padR = 80;
+  const H = data.length * (barH + gap) + 20;
+  const barW = W - padL - padR;
+  const colors = ['var(--series-1)','var(--series-2)','var(--series-3)','var(--series-4)','var(--series-5)','var(--series-7)'];
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px">`;
+  data.forEach((d, i) => {
+    const y = i * (barH + gap) + 10;
+    const w = maxVal > 0 ? Math.max(barW * (d.value / maxVal), 4) : 4;
+    svg += `<text x="${padL - 8}" y="${y + barH/2 + 4}" text-anchor="end" fill="var(--text-secondary)" font-size="11">${d.label}</text>`;
+    svg += `<rect x="${padL}" y="${y}" width="${w}" height="${barH}" rx="4" fill="${colors[i]}" opacity="0.85"
+      onmousemove="showTip(event,'${d.full}: ${fmtFull(d.value)}')" onmouseleave="hideTip()"/>`;
+    svg += `<text x="${padL + w + 8}" y="${y + barH/2 + 4}" fill="var(--text-primary)" font-size="12">${fmt(d.value)}</text>`;
+  });
+  svg += '</svg>';
+  document.getElementById('chart-revenue-campaign').innerHTML = svg;
+}
+
+function renderIndustryChart() {
+  const indMap = {};
+  getOpps().filter(o => o.stage === 'partner_confirmed').forEach(o => {
+    indMap[o.industry] = (indMap[o.industry] || 0) + o.confirmed;
+  });
+  const data = Object.entries(indMap).sort((a, b) => b[1] - a[1]).map(([k, v]) => ({ label: k, value: v }));
+  const maxVal = Math.max(...data.map(d => d.value));
+  const W = 580, barH = 28, gap = 10, padL = 140, padR = 80;
+  const H = data.length * (barH + gap) + 20;
+  const barW = W - padL - padR;
+  const colors = ['var(--series-1)','var(--series-2)','var(--series-3)','var(--series-4)','var(--series-5)','var(--series-7)'];
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px">`;
+  data.forEach((d, i) => {
+    const y = i * (barH + gap) + 10;
+    const w = maxVal > 0 ? Math.max(barW * (d.value / maxVal), 4) : 4;
+    svg += `<text x="${padL - 8}" y="${y + barH/2 + 4}" text-anchor="end" fill="var(--text-secondary)" font-size="11">${d.label}</text>`;
+    svg += `<rect x="${padL}" y="${y}" width="${w}" height="${barH}" rx="4" fill="${colors[i % colors.length]}" opacity="0.85"
+      onmousemove="showTip(event,'${d.label}: ${fmtFull(d.value)}')" onmouseleave="hideTip()"/>`;
+    svg += `<text x="${padL + w + 8}" y="${y + barH/2 + 4}" fill="var(--text-primary)" font-size="12">${fmt(d.value)}</text>`;
+  });
+  svg += '</svg>';
+  document.getElementById('chart-industry').innerHTML = svg;
+}
+
+function renderTrendChart() {
+  const data = DATA.monthlyTrend;
+  const W = 560, H = 220, padL = 60, padR = 20, padT = 20, padB = 40;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const maxVal = Math.max(...data.map(d => d.cumulative));
+  const xStep = plotW / (data.length - 1);
+  const points = data.map((d, i) => ({
+    x: padL + i * xStep,
+    y: padT + plotH - (plotH * d.cumulative / maxVal),
+    ...d
+  }));
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px">`;
+  // grid
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + (plotH / 4) * i;
+    const val = maxVal - (maxVal / 4) * i;
+    svg += `<line x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}" stroke="var(--surface-3)" stroke-width="1"/>`;
+    svg += `<text x="${padL - 8}" y="${y + 4}" text-anchor="end" fill="var(--text-muted)" font-size="10">${fmt(val)}</text>`;
+  }
+  // area
+  const areaPath = `M${points[0].x},${padT + plotH} ${points.map(p => `L${p.x},${p.y}`).join(' ')} L${points[points.length-1].x},${padT + plotH} Z`;
+  svg += `<path d="${areaPath}" fill="var(--series-1)" opacity="0.12"/>`;
+  // line
+  const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
+  svg += `<path d="${linePath}" fill="none" stroke="var(--series-1)" stroke-width="2.5" stroke-linejoin="round"/>`;
+  // dots + labels
+  points.forEach(p => {
+    svg += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--series-1)" stroke="var(--surface-2)" stroke-width="2"
+      onmousemove="showTip(event,'${p.month} 2025: ${fmtFull(p.cumulative)}')" onmouseleave="hideTip()"/>`;
+    svg += `<text x="${p.x}" y="${padT + plotH + 24}" text-anchor="middle" fill="var(--text-secondary)" font-size="11">${p.month}</text>`;
+  });
+  svg += '</svg>';
+  document.getElementById('chart-trend').innerHTML = svg;
+}
+
+function renderTargetMeters() {
+  const opps = getOpps();
+  const confirmed = opps.filter(o => o.stage === 'partner_confirmed');
+  const totalCash = confirmed.reduce((s, o) => s + o.confirmed, 0);
+  const meters = [
+    { label: 'Qualified Brands', actual: DATA.qualification.qualified, target: DATA.targets.qualified, color: 'var(--series-3)' },
+    { label: 'Confirmed Partnerships', actual: confirmed.length, target: DATA.targets.confirmed, color: 'var(--series-1)' },
+    { label: 'Cash Collected (Base)', actual: totalCash, target: 2000000, fmt: true, color: 'var(--series-4)' },
+    { label: 'Cash Collected (Stretch)', actual: totalCash, target: 3200000, fmt: true, color: 'var(--series-5)' }
+  ];
+  document.getElementById('target-meters').innerHTML = meters.map(m => {
+    const pctVal = Math.min(100, m.actual / m.target * 100);
+    const actLabel = m.fmt ? fmt(m.actual) : m.actual;
+    const tgtLabel = m.fmt ? fmt(m.target) : m.target;
+    return `<div class="meter-row">
+      <div class="meter-label"><span>${m.label}</span><span>${actLabel} / ${tgtLabel} (${pctVal.toFixed(0)}%)</span></div>
+      <div class="meter-track"><div class="meter-fill" style="width:${pctVal}%;background:${m.color}"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderDashboard() {
+  renderKPIs();
+  renderFunnel();
+  renderPipeline();
+  renderCampaignTable();
+  renderRevenueByCampaign();
+  renderIndustryChart();
+  renderTrendChart();
+  renderTargetMeters();
+}
+
+// ===========================
+// CAMPAIGN MANAGEMENT
+// ===========================
+function getCampaignState() {
+  const saved = JSON.parse(localStorage.getItem('cf25_campaigns') || '{}');
+  return DATA.campaigns.map(c => ({ ...c, status: saved[c.id]?.status || 'active', budget: saved[c.id]?.budget || '', notes: saved[c.id]?.notes || '' }));
+}
+function saveCampaignState(id, field, value) {
+  const saved = JSON.parse(localStorage.getItem('cf25_campaigns') || '{}');
+  if (!saved[id]) saved[id] = {};
+  saved[id][field] = value;
+  localStorage.setItem('cf25_campaigns', JSON.stringify(saved));
+}
+
+function renderCampaignMgmt() {
+  const camps = getCampaignState();
+  let html = '<table class="data-table"><thead><tr><th>Campaign</th><th>Channel</th><th>Owner</th><th>Status</th><th>Budget (INR)</th><th>Notes</th></tr></thead><tbody>';
+  camps.forEach(c => {
+    html += `<tr>
+      <td style="font-weight:500">${c.name}</td>
+      <td>${c.channel}</td>
+      <td>${c.owner}</td>
+      <td><select onchange="saveCampaignState('${c.id}','status',this.value)" style="font-size:12px">
+        <option value="active" ${c.status==='active'?'selected':''}>Active</option>
+        <option value="paused" ${c.status==='paused'?'selected':''}>Paused</option>
+        <option value="completed" ${c.status==='completed'?'selected':''}>Completed</option>
+      </select></td>
+      <td><input type="number" value="${c.budget}" placeholder="e.g. 50000" style="width:100px"
+        onchange="saveCampaignState('${c.id}','budget',this.value)"></td>
+      <td><input type="text" value="${c.notes}" placeholder="Add notes..." style="width:180px"
+        onchange="saveCampaignState('${c.id}','notes',this.value)"></td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('campaign-mgmt-table').innerHTML = html;
+}
+
+// TASKS
+const DEFAULT_TASKS = [
+  { id:'t1', title:'Follow up on 8 negotiating deals before event', owner:'Riya Kapoor', priority:'high', deadline:'2025-04-08', status:'in-progress' },
+  { id:'t2', title:'Send proposals to 6 contacted opportunities', owner:'Meera Iyer', priority:'high', deadline:'2025-04-05', status:'todo' },
+  { id:'t3', title:'Close Beardo additional sampling activation (INR 1.5L)', owner:'Riya Kapoor', priority:'high', deadline:'2025-04-07', status:'in-progress' },
+  { id:'t4', title:'Review 8 unreviewed brands for qualification', owner:'Kabir Shah', priority:'medium', deadline:'2025-04-04', status:'todo' },
+  { id:'t5', title:'Re-engage 28 engaged brands that stalled', owner:'Kabir Shah', priority:'medium', deadline:'2025-04-06', status:'todo' },
+  { id:'t6', title:'Prepare sponsor activation kits for confirmed partners', owner:'Nisha Rao', priority:'medium', deadline:'2025-04-10', status:'todo' },
+  { id:'t7', title:'Collect cash from confirmed partners (INR 22.4L)', owner:'Nisha Rao', priority:'high', deadline:'2025-04-11', status:'in-progress' },
+  { id:'t8', title:'Win back 2 high-value lost deals (Daybreak Studio, Evergreen Collective)', owner:'Riya Kapoor', priority:'medium', deadline:'2025-04-06', status:'todo' },
+  { id:'t9', title:'LinkedIn campaign: target 20 new brand leaders', owner:'Riya Kapoor', priority:'low', deadline:'2025-04-03', status:'done' },
+  { id:'t10', title:'Update sponsor deck with latest confirmed partners', owner:'Meera Iyer', priority:'low', deadline:'2025-04-05', status:'done' }
+];
+
+function getTasks() {
+  const saved = localStorage.getItem('cf25_tasks');
+  if (saved) try { return JSON.parse(saved); } catch(e) {}
+  return DEFAULT_TASKS.map(t => ({ ...t }));
+}
+function saveTasks(tasks) { localStorage.setItem('cf25_tasks', JSON.stringify(tasks)); }
+
+function renderTaskBoard() {
+  const tasks = getTasks();
+  const cols = ['todo','in-progress','done'];
+  const colLabels = { 'todo':'To Do', 'in-progress':'In Progress', 'done':'Done' };
+  document.getElementById('task-board').innerHTML = cols.map(col => {
+    const colTasks = tasks.filter(t => t.status === col);
+    return `<div>
+      <div class="task-col-header">${colLabels[col]} <span class="count">${colTasks.length}</span></div>
+      ${colTasks.map(t => `
+        <div class="task-card" style="border-left:3px solid ${t.priority==='high'?'var(--status-critical)':t.priority==='medium'?'var(--status-warn)':'var(--status-good)'}">
+          <div class="task-title">${t.title}</div>
+          <div class="task-meta">
+            <span>${t.owner}</span>
+            <span>${t.deadline || 'No deadline'}</span>
+            <span>${t.priority}</span>
+          </div>
+          <div style="margin-top:6px;display:flex;gap:6px">
+            <select style="font-size:11px;padding:2px 4px" onchange="moveTask('${t.id}',this.value)">
+              ${cols.map(c => `<option value="${c}" ${c === t.status ? 'selected' : ''}>${colLabels[c]}</option>`).join('')}
+            </select>
+          </div>
+        </div>`).join('')}
+    </div>`;
+  }).join('');
+}
+
+function moveTask(id, newStatus) {
+  const tasks = getTasks();
+  const t = tasks.find(t => t.id === id);
+  if (t) t.status = newStatus;
+  saveTasks(tasks);
+  renderTaskBoard();
+}
+
+let editingTaskId = null;
+function openTaskModal() {
+  editingTaskId = null;
+  document.getElementById('task-modal-title').textContent = 'Add Task';
+  document.getElementById('tm-title').value = '';
+  document.getElementById('tm-owner').value = 'Riya Kapoor';
+  document.getElementById('tm-priority').value = 'medium';
+  document.getElementById('tm-deadline').value = '';
+  document.getElementById('tm-status').value = 'todo';
+  document.getElementById('task-modal').classList.remove('hidden');
+}
+function closeTaskModal() { document.getElementById('task-modal').classList.add('hidden'); }
+function saveTask() {
+  const tasks = getTasks();
+  const task = {
+    id: 't' + Date.now(),
+    title: document.getElementById('tm-title').value.trim(),
+    owner: document.getElementById('tm-owner').value,
+    priority: document.getElementById('tm-priority').value,
+    deadline: document.getElementById('tm-deadline').value,
+    status: document.getElementById('tm-status').value
+  };
+  if (!task.title) return;
+  tasks.push(task);
+  saveTasks(tasks);
+  closeTaskModal();
+  renderTaskBoard();
+}
+
+// ===========================
+// OPPORTUNITIES
+// ===========================
+let oppSort = { col: 'proposed', dir: -1 };
+
+function renderOppKPIs() {
+  const opps = getOpps();
+  const active = opps.filter(o => !['partner_confirmed','lost','withdrawn'].includes(o.stage));
+  const confirmed = opps.filter(o => o.stage === 'partner_confirmed');
+  const kpis = [
+    { label:'Total Opportunities', value: opps.length },
+    { label:'Active Pipeline', value: active.length, sub: fmt(active.reduce((s, o) => s + o.proposed, 0)) },
+    { label:'Confirmed', value: confirmed.length, sub: fmt(confirmed.reduce((s, o) => s + o.confirmed, 0)) },
+    { label:'Lost / Withdrawn', value: opps.filter(o => ['lost','withdrawn'].includes(o.stage)).length }
+  ];
+  document.getElementById('opp-kpi-row').innerHTML = kpis.map(k => `
+    <div class="kpi-card"><div class="kpi-label">${k.label}</div><div class="kpi-value">${k.value}</div>${k.sub ? `<div class="kpi-sub">${k.sub}</div>` : ''}</div>`).join('');
+}
+
+function renderOppFilters() {
+  const stages = [...new Set(DATA.opportunities.map(o => o.stage))];
+  const campaigns = [...new Set(DATA.opportunities.map(o => o.campaign))];
+  const owners = [...new Set(DATA.opportunities.map(o => o.owner))];
+  const labels = { partner_confirmed:'Confirmed', negotiating:'Negotiating', proposal_sent:'Proposal Sent', contacted:'Contacted', prospecting:'Prospecting', lost:'Lost', withdrawn:'Withdrawn' };
+  document.getElementById('opp-filter-stage').innerHTML = '<option value="">All Stages</option>' + stages.map(s => `<option value="${s}">${labels[s]||s}</option>`).join('');
+  document.getElementById('opp-filter-campaign').innerHTML = '<option value="">All Campaigns</option>' + campaigns.map(c => `<option value="${c}">${c}</option>`).join('');
+  document.getElementById('opp-filter-owner').innerHTML = '<option value="">All Owners</option>' + owners.map(o => `<option value="${o}">${o}</option>`).join('');
+}
+
+function renderOppTable() {
+  const opps = getOpps();
+  const stageF = document.getElementById('opp-filter-stage').value;
+  const campF = document.getElementById('opp-filter-campaign').value;
+  const ownerF = document.getElementById('opp-filter-owner').value;
+  let filtered = opps;
+  if (stageF) filtered = filtered.filter(o => o.stage === stageF);
+  if (campF) filtered = filtered.filter(o => o.campaign === campF);
+  if (ownerF) filtered = filtered.filter(o => o.owner === ownerF);
+  filtered.sort((a, b) => {
+    let va = a[oppSort.col], vb = b[oppSort.col];
+    if (typeof va === 'string') return oppSort.dir * va.localeCompare(vb);
+    return oppSort.dir * (va - vb);
+  });
+  const tbody = document.querySelector('#opp-table tbody');
+  tbody.innerHTML = filtered.map(o => `<tr>
+    <td style="font-weight:500">${o.brand}</td>
+    <td>${stageBadge(o.stage)}</td>
+    <td>${fmtFull(o.proposed)}</td>
+    <td>${o.confirmed > 0 ? fmtFull(o.confirmed) : '—'}</td>
+    <td>${o.owner}</td>
+    <td style="font-size:12px">${o.campaign}</td>
+    <td style="font-size:12px">${o.industry}</td>
+    <td><button class="btn btn-sm" onclick="openOppModal('${o.id}')">Edit</button></td>
+  </tr>`).join('');
+}
+
+function openOppModal(id) {
+  const opp = getOpps().find(o => o.id === id);
+  if (!opp) return;
+  document.getElementById('om-brand').value = opp.brand;
+  document.getElementById('om-stage').value = opp.stage;
+  document.getElementById('om-proposed').value = opp.proposed;
+  document.getElementById('om-confirmed').value = opp.confirmed;
+  document.getElementById('om-id').value = opp.id;
+  document.getElementById('opp-modal').classList.remove('hidden');
+}
+function closeOppModal() { document.getElementById('opp-modal').classList.add('hidden'); }
+function saveOpp() {
+  const id = document.getElementById('om-id').value;
+  const changes = {
+    stage: document.getElementById('om-stage').value,
+    proposed: Number(document.getElementById('om-proposed').value) || 0,
+    confirmed: Number(document.getElementById('om-confirmed').value) || 0
+  };
+  saveOppEdit(id, changes);
+  closeOppModal();
+  renderOppKPIs();
+  renderOppTable();
+  renderDashboard();
+}
+
+document.querySelectorAll('#opp-table th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (oppSort.col === col) oppSort.dir *= -1;
+    else { oppSort.col = col; oppSort.dir = -1; }
+    renderOppTable();
+  });
+});
+['opp-filter-stage','opp-filter-campaign','opp-filter-owner'].forEach(id => {
+  document.getElementById(id).addEventListener('change', renderOppTable);
+});
+
+// ===========================
+// AI CHATBOT
+// ===========================
+const chatMessages = [];
+
+const SUGGESTED = [
+  "How are we doing overall?",
+  "What's our total cash collected?",
+  "Which campaign performs best?",
+  "Compare email vs LinkedIn outreach",
+  "What's in the active pipeline?",
+  "How much can we still close?",
+  "Tell me about Beardo",
+  "What happened with Cobalt Learning?",
+  "What should we focus on this week?",
+  "Which deals should we prioritize?",
+  "Where are the bottlenecks?",
+  "Are we on track to hit 28 partnerships?",
+  "Which industries have the most sponsorship?",
+  "Who is Riya Kapoor responsible for?",
+  "What's our average deal size?",
+  "Show me the top 5 deals",
+  "How many brands are still engaged but not qualified?",
+  "What is the win rate by campaign?"
+];
+
+function renderSuggested() {
+  document.getElementById('suggested-questions').innerHTML = SUGGESTED.map(q =>
+    `<button class="suggested-q" onclick="askSuggested(this.textContent)">${q}</button>`
+  ).join('');
+}
+
+function askSuggested(q) {
+  document.getElementById('chat-input').value = q;
+  sendChat();
+}
+
+function addChatMsg(role, text) {
+  chatMessages.push({ role, text });
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  div.innerHTML = text;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const q = input.value.trim();
+  if (!q) return;
+  input.value = '';
+  addChatMsg('user', q);
+  const answer = generateAnswer(q);
+  setTimeout(() => addChatMsg('bot', answer), 300);
+}
+
+document.getElementById('chat-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendChat();
+});
+
+function generateAnswer(q) {
+  const ql = q.toLowerCase();
+  const opps = getOpps();
+  const confirmed = opps.filter(o => o.stage === 'partner_confirmed');
+  const totalCash = confirmed.reduce((s, o) => s + o.confirmed, 0);
+  const active = opps.filter(o => !['partner_confirmed','lost','withdrawn'].includes(o.stage));
+  const activePipelineVal = active.reduce((s, o) => s + o.proposed, 0);
+
+  // Overall performance
+  if (ql.match(/how are we doing|overall|summary|status|overview/)) {
+    return `<strong>Sponsorship Overview</strong><br><br>
+We've collected <span class="data-point">${fmtFull(totalCash)}</span> from <span class="data-point">${confirmed.length}</span> confirmed partnerships out of a target of ${DATA.targets.confirmed}.<br><br>
+<strong>Key highlights:</strong><br>
+&bull; <span class="data-point">${DATA.qualification.qualified}</span> brands qualified (target: ${DATA.targets.qualified}) — exceeded by ${DATA.qualification.qualified - DATA.targets.qualified}<br>
+&bull; Active pipeline: ${active.length} deals worth <span class="data-point">${fmt(activePipelineVal)}</span><br>
+&bull; Win rate: <span class="data-point">${(confirmed.length/opps.length*100).toFixed(0)}%</span><br>
+&bull; ${DATA.targets.confirmed - confirmed.length} more partnerships needed to hit the revised target<br><br>
+We're ${confirmed.length >= DATA.targets.confirmed ? 'at' : 'short of'} the partnership count target but have solid pipeline to close the gap.`;
+  }
+
+  // Total cash
+  if (ql.match(/total cash|how much.*collected|revenue|money|cash collected/)) {
+    return `Total sponsorship cash collected: <span class="data-point">${fmtFull(totalCash)}</span> from ${confirmed.length} confirmed deals.<br><br>
+Average deal size: <span class="data-point">${fmtFull(Math.round(totalCash / confirmed.length))}</span><br>
+Largest deal: <span class="data-point">Beardo at ${fmtFull(200000)}</span><br>
+Active pipeline value: <span class="data-point">${fmtFull(activePipelineVal)}</span> across ${active.length} deals.`;
+  }
+
+  // Best campaign
+  if (ql.match(/best campaign|which campaign.*best|top campaign|most effective/)) {
+    const sorted = [...DATA.campaigns].sort((a, b) => b.confirmedValue - a.confirmedValue);
+    return `<strong>Campaign Ranking by Revenue</strong><br><br>
+${sorted.map((c, i) => `${i+1}. <strong>${c.name}</strong>: ${fmt(c.confirmedValue)} (${c.confirmedDeals} deals, ${c.sent > 0 ? (c.replied/c.sent*100).toFixed(0) : '100'}% reply rate)`).join('<br>')}<br><br>
+<strong>Recommendation:</strong> <strong>Warm Partner Introductions</strong> and <strong>Brand Discovery Email</strong> are tied at ${fmt(605000)} each. However, Warm Introductions achieves this with only 10 touches vs 224 for email — making it far more efficient per outreach. <strong>Creator Network Referrals</strong> (95% reply rate) is the highest-converting channel.`;
+  }
+
+  // Compare email vs linkedin
+  if (ql.match(/compare.*email.*linkedin|email vs.*linkedin|linkedin vs.*email/)) {
+    const email = DATA.campaigns.find(c => c.id === 'SC01');
+    const linkedin = DATA.campaigns.find(c => c.id === 'SC03');
+    return `<strong>Email vs LinkedIn Comparison</strong><br><br>
+<table style="width:100%;font-size:12px;border-collapse:collapse">
+<tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:4px 8px">Metric</th><th style="padding:4px 8px">Email</th><th style="padding:4px 8px">LinkedIn</th></tr>
+<tr><td style="padding:4px 8px">Reach</td><td style="padding:4px 8px;text-align:center">${email.sent}</td><td style="padding:4px 8px;text-align:center">${linkedin.sent}</td></tr>
+<tr><td style="padding:4px 8px">Replies</td><td style="padding:4px 8px;text-align:center">${email.replied}</td><td style="padding:4px 8px;text-align:center">${linkedin.replied}</td></tr>
+<tr><td style="padding:4px 8px">Reply Rate</td><td style="padding:4px 8px;text-align:center">${(email.replied/email.sent*100).toFixed(0)}%</td><td style="padding:4px 8px;text-align:center">${(linkedin.replied/linkedin.sent*100).toFixed(0)}%</td></tr>
+<tr><td style="padding:4px 8px">Meetings</td><td style="padding:4px 8px;text-align:center">${email.meetings}</td><td style="padding:4px 8px;text-align:center">${linkedin.meetings}</td></tr>
+<tr><td style="padding:4px 8px">Revenue</td><td style="padding:4px 8px;text-align:center">${fmt(email.confirmedValue)}</td><td style="padding:4px 8px;text-align:center">${fmt(linkedin.confirmedValue)}</td></tr>
+</table><br>
+<strong>Verdict:</strong> LinkedIn has a <span class="data-point">3.6x higher reply rate</span> (61% vs 17%) and generates more meetings per send. Email has higher volume but lower efficiency. For remaining time before the festival, LinkedIn outreach to decision-makers is the better bet.`;
+  }
+
+  // Pipeline
+  if (ql.match(/pipeline|what's in the pipeline|active deals|open deals/)) {
+    const byStage = {};
+    active.forEach(o => {
+      if (!byStage[o.stage]) byStage[o.stage] = { count: 0, value: 0 };
+      byStage[o.stage].count++;
+      byStage[o.stage].value += o.proposed;
+    });
+    const labels = { negotiating:'Negotiating', proposal_sent:'Proposal Sent', contacted:'Contacted', prospecting:'Prospecting' };
+    return `<strong>Active Pipeline</strong><br><br>
+${Object.entries(byStage).map(([s, d]) => `&bull; <strong>${labels[s]||s}</strong>: ${d.count} deals, ${fmtFull(d.value)}`).join('<br>')}<br><br>
+Total: <span class="data-point">${active.length} deals</span> worth <span class="data-point">${fmtFull(activePipelineVal)}</span><br><br>
+The 8 negotiating deals (${fmtFull(720000)}) are closest to closing and should be the top priority.`;
+  }
+
+  // How much can we still close
+  if (ql.match(/how much.*close|potential|upside|can we still/)) {
+    const nego = opps.filter(o => o.stage === 'negotiating');
+    const prop = opps.filter(o => o.stage === 'proposal_sent');
+    const negoVal = nego.reduce((s, o) => s + o.proposed, 0);
+    const propVal = prop.reduce((s, o) => s + o.proposed, 0);
+    return `<strong>Closing Potential Analysis</strong><br><br>
+&bull; <strong>Negotiating</strong> (highest probability ~60-70%): ${nego.length} deals, ${fmtFull(negoVal)} → Expected: ~<span class="data-point">${fmtFull(Math.round(negoVal * 0.65))}</span><br>
+&bull; <strong>Proposal Sent</strong> (~40-50%): ${prop.length} deals, ${fmtFull(propVal)} → Expected: ~<span class="data-point">${fmtFull(Math.round(propVal * 0.45))}</span><br>
+&bull; Earlier stages are unlikely to close before 12 Apr<br><br>
+<strong>Realistic best case:</strong> ${fmtFull(totalCash)} + ~${fmtFull(Math.round(negoVal * 0.65 + propVal * 0.45))} = <span class="data-point">~${fmtFull(totalCash + Math.round(negoVal * 0.65 + propVal * 0.45))}</span><br><br>
+This would bring us to roughly ${confirmed.length + Math.round(nego.length * 0.65 + prop.length * 0.45)} confirmed partners. We need urgency on the negotiating stage deals.`;
+  }
+
+  // Specific brand lookup
+  const brandMatch = ql.match(/(?:about|tell me about|what about|what happened.*with|status of|how is)\s+([a-z][a-z\s]+)/i);
+  if (brandMatch) {
+    const brandName = brandMatch[1].trim();
+    const matches = opps.filter(o => o.brand.toLowerCase().includes(brandName.toLowerCase()));
+    if (matches.length > 0) {
+      return matches.map(o => `<strong>${o.brand}</strong><br>
+&bull; Stage: ${stageBadge(o.stage)}<br>
+&bull; Proposed: ${fmtFull(o.proposed)}${o.confirmed > 0 ? `, Confirmed: ${fmtFull(o.confirmed)}` : ''}<br>
+&bull; Owner: ${o.owner}<br>
+&bull; Campaign: ${o.campaign}<br>
+&bull; Industry: ${o.industry}`).join('<br><br>');
+    }
+    const confirmedMatch = DATA.confirmedPartners.filter(p => p.brand.toLowerCase().includes(brandName.toLowerCase()));
+    if (confirmedMatch.length > 0) {
+      return confirmedMatch.map(p => `<strong>${p.brand}</strong> — Confirmed partner<br>
+&bull; Value: <span class="data-point">${fmtFull(p.value)}</span><br>
+&bull; Industry: ${p.industry}<br>
+&bull; Campaign: ${p.campaign}`).join('<br><br>');
+    }
+    return `I couldn't find a brand matching "<strong>${brandName}</strong>" in our opportunity pipeline. The brand may exist in our wider prospect list of 180 brands but doesn't have an active opportunity yet. Would you like me to look at something else?`;
+  }
+
+  // Focus / prioritize
+  if (ql.match(/focus|prioritize|what should we|recommend|action/)) {
+    const nego = opps.filter(o => o.stage === 'negotiating');
+    return `<strong>Recommended Priority Actions</strong><br><br>
+<strong>1. Close Negotiating Deals (Urgent)</strong><br>
+${nego.length} deals worth ${fmtFull(nego.reduce((s,o)=>s+o.proposed,0))} — push for signatures this week. Key deals: ${nego.slice(0,3).map(o=>`${o.brand} (${fmt(o.proposed)})`).join(', ')}<br><br>
+<strong>2. Convert Proposal-Sent to Negotiating</strong><br>
+${opps.filter(o=>o.stage==='proposal_sent').length} proposals pending — follow up within 48 hours<br><br>
+<strong>3. Re-engage Engaged Brands</strong><br>
+${DATA.qualification.engaged} brands are engaged but not yet qualified — schedule qualification calls<br><br>
+<strong>4. Win-Back High-Value Lost Deals</strong><br>
+${opps.filter(o=>o.stage==='lost').slice(0,2).map(o=>`${o.brand} (${fmt(o.proposed)})`).join(', ')} — worth a last attempt with revised terms<br><br>
+<strong>5. Maximize Creator & Introduction Channels</strong><br>
+These have 90-95% reply rates — tap more alumni and creator networks`;
+  }
+
+  // Bottlenecks
+  if (ql.match(/bottleneck|stuck|problem|issue|block/)) {
+    return `<strong>Identified Bottlenecks</strong><br><br>
+<strong>1. Email Reply Rate (17%)</strong> — Brand Discovery Email reaches 224 contacts but only 38 replied. The volume approach isn't converting. Consider more personalized messaging or switching to warmer channels.<br><br>
+<strong>2. Dormant Brands (63 of 180)</strong> — 35% of targeted brands have gone dormant. This is the biggest leak in the funnel. Diagnosis: likely cold outreach fatigue from repeated emails without value proposition refinement.<br><br>
+<strong>3. Proposal → Close Conversion</strong> — 6 proposals sitting without progression. Average time stuck is concerning with event in 10 days.<br><br>
+<strong>4. Lost Deals (7 worth ${fmtFull(780000)})</strong> — Significant value lost. Top losses: Daybreak Studio (${fmt(125000)}), Evergreen Collective (${fmt(135000)}), Daybreak Collective (${fmt(125000)}).<br><br>
+<strong>5. Team Capacity</strong> — Kabir Shah owns 3 campaigns but LinkedIn (Riya's) generates the most pipeline. Consider rebalancing.`;
+  }
+
+  // On track
+  if (ql.match(/on track|hit.*target|will we|reach.*28|meet.*goal/)) {
+    const gap = DATA.targets.confirmed - confirmed.length;
+    const nego = opps.filter(o => o.stage === 'negotiating').length;
+    const prop = opps.filter(o => o.stage === 'proposal_sent').length;
+    return `<strong>Target Tracking</strong><br><br>
+&bull; Confirmed partnerships: <span class="data-point">${confirmed.length} / ${DATA.targets.confirmed}</span> (${gap} remaining)<br>
+&bull; Qualified brands: <span class="data-point">${DATA.qualification.qualified} / ${DATA.targets.qualified}</span> — target exceeded by ${DATA.qualification.qualified - DATA.targets.qualified}<br><br>
+<strong>Can we reach 28?</strong><br>
+We have ${nego} deals negotiating and ${prop} proposals sent = ${nego + prop} in late-stage pipeline.<br>
+If we close ~65% of negotiating (${Math.round(nego*0.65)}) and ~40% of proposals (${Math.round(prop*0.4)}), that's ~${Math.round(nego*0.65 + prop*0.4)} more confirmations.<br>
+Projected total: <span class="data-point">${confirmed.length + Math.round(nego*0.65 + prop*0.4)} partnerships</span><br><br>
+${confirmed.length + Math.round(nego*0.65 + prop*0.4) >= DATA.targets.confirmed ?
+  'We are likely to <strong>meet the target</strong> if the team executes well on negotiating deals.' :
+  'We are <strong>at risk</strong> of missing the target. Closing every negotiating deal and converting proposals is critical.'}`;
+  }
+
+  // Industry
+  if (ql.match(/industr/)) {
+    const indMap = {};
+    confirmed.forEach(o => { indMap[o.industry] = (indMap[o.industry] || 0) + o.confirmed; });
+    const sorted = Object.entries(indMap).sort((a, b) => b[1] - a[1]);
+    return `<strong>Revenue by Industry</strong><br><br>
+${sorted.map(([ind, val]) => `&bull; <strong>${ind}</strong>: ${fmtFull(val)} (${confirmed.filter(o=>o.industry===ind).length} deals)`).join('<br>')}<br><br>
+Mobility and Food & Beverage lead in total value. The brand mix is well-diversified across 6 industries, reducing dependency on any single sector.`;
+  }
+
+  // Owner / team member
+  if (ql.match(/riya|kabir|meera|nisha|who is.*responsible|team/)) {
+    const name = ql.includes('riya') ? 'Riya Kapoor' : ql.includes('kabir') ? 'Kabir Shah' : ql.includes('meera') ? 'Meera Iyer' : ql.includes('nisha') ? 'Nisha Rao' : null;
+    if (name) {
+      const ownerOpps = opps.filter(o => o.owner === name);
+      const ownerConfirmed = ownerOpps.filter(o => o.stage === 'partner_confirmed');
+      const ownerCamps = DATA.campaigns.filter(c => c.owner === name);
+      return `<strong>${name}</strong><br><br>
+&bull; Opportunities owned: ${ownerOpps.length}<br>
+&bull; Confirmed deals: ${ownerConfirmed.length} (${fmtFull(ownerConfirmed.reduce((s,o)=>s+o.confirmed,0))})<br>
+&bull; Active pipeline: ${ownerOpps.filter(o=>!['partner_confirmed','lost','withdrawn'].includes(o.stage)).length} deals<br>
+&bull; Campaigns: ${ownerCamps.map(c=>c.name).join(', ') || 'None'}<br><br>
+${name === 'Riya Kapoor' ? 'Riya manages the most opportunities and highest revenue — the primary closer on the team.' : ''}`;
+    }
+    return `<strong>Team Overview</strong><br><br>
+${DATA.team.map(t => {
+  const memberOpps = opps.filter(o => o.owner === t.name);
+  const memberConf = memberOpps.filter(o => o.stage === 'partner_confirmed');
+  return `&bull; <strong>${t.name}</strong>: ${memberOpps.length} opportunities, ${memberConf.length} confirmed (${fmtFull(memberConf.reduce((s,o)=>s+o.confirmed,0))})`;
+}).join('<br>')}`;
+  }
+
+  // Average deal
+  if (ql.match(/average|avg|deal size|typical/)) {
+    const avg = Math.round(totalCash / confirmed.length);
+    const sorted = [...confirmed].sort((a, b) => b.confirmed - a.confirmed);
+    return `<strong>Deal Size Analysis</strong><br><br>
+&bull; Average confirmed deal: <span class="data-point">${fmtFull(avg)}</span><br>
+&bull; Largest: ${sorted[0].brand} at ${fmtFull(sorted[0].confirmed)}<br>
+&bull; Smallest: ${sorted[sorted.length-1].brand} at ${fmtFull(sorted[sorted.length-1].confirmed)}<br>
+&bull; Median: ${fmtFull(sorted[Math.floor(sorted.length/2)].confirmed)}<br><br>
+Deals range from ${fmtFull(35000)} to ${fmtFull(200000)}. The sweet spot for our festival tier appears to be ${fmtFull(80000)}-${fmtFull(125000)}.`;
+  }
+
+  // Top deals
+  if (ql.match(/top.*deal|biggest|largest|highest/)) {
+    const sorted = [...confirmed].sort((a, b) => b.confirmed - a.confirmed).slice(0, 5);
+    return `<strong>Top 5 Confirmed Deals</strong><br><br>
+${sorted.map((o, i) => `${i+1}. <strong>${o.brand}</strong> — <span class="data-point">${fmtFull(o.confirmed)}</span> (${o.industry}, via ${o.campaign})`).join('<br>')}`;
+  }
+
+  // Engaged brands
+  if (ql.match(/engaged|not.*qualified|stalled/)) {
+    return `There are <span class="data-point">${DATA.qualification.engaged}</span> brands currently in "engaged" status — they've responded to outreach but haven't been qualified for partnership fit yet.<br><br>
+Additionally, ${DATA.qualification.unreviewed} brands remain unreviewed.<br><br>
+<strong>Recommendation:</strong> Schedule qualification calls for the engaged brands this week. With the festival 10 days away, any that show budget alignment and audience fit should be fast-tracked to opportunity creation. Even at a conservative 30% qualification rate, that's ~8-9 new qualified brands and potentially 3-4 more deals.`;
+  }
+
+  // Win rate by campaign
+  if (ql.match(/win rate.*campaign|conversion.*campaign|campaign.*win rate/)) {
+    return `<strong>Win Rate by Originating Campaign</strong><br><br>
+${DATA.campaigns.map(c => {
+  const campOpps = opps.filter(o => o.campaign === c.name);
+  const campWins = campOpps.filter(o => o.stage === 'partner_confirmed');
+  return `&bull; <strong>${c.name}</strong>: ${campWins.length}/${campOpps.length} = <span class="data-point">${campOpps.length ? (campWins.length/campOpps.length*100).toFixed(0) : 0}%</span>`;
+}).join('<br>')}<br><br>
+<strong>Warm Partner Introductions</strong> and <strong>Creator Network Referrals</strong> have the highest win rates — relationship-driven channels outperform cold outreach significantly.`;
+  }
+
+  // Greeting
+  if (ql.match(/^(hi|hello|hey|good morning|good evening)/)) {
+    return `Hello! I'm your CampusFest 2025 Sponsorship Growth Analyst. I can help you understand campaign performance, analyze the pipeline, compare strategies, and recommend actions.<br><br>Try asking me about overall performance, specific campaigns, brands, or what to focus on next.`;
+  }
+
+  // Thanks
+  if (ql.match(/thanks|thank you|great|awesome/)) {
+    return `You're welcome! Let me know if you need any other analysis or recommendations.`;
+  }
+
+  // Fallback: uncertainty acknowledgment
+  return `I'm not sure I can fully answer that with the available sponsorship data. Here's what I can help with:<br><br>
+&bull; Overall performance and target tracking<br>
+&bull; Campaign comparisons and analysis<br>
+&bull; Pipeline and deal status<br>
+&bull; Specific brand lookups<br>
+&bull; Strategy recommendations and bottleneck analysis<br>
+&bull; Team and owner breakdowns<br>
+&bull; Industry analysis<br><br>
+Could you rephrase your question or pick one of the suggested questions from the sidebar?`;
+}
+
+// ===========================
+// INIT
+// ===========================
+function init() {
+  renderDashboard();
+  renderCampaignMgmt();
+  renderTaskBoard();
+  renderOppKPIs();
+  renderOppFilters();
+  renderOppTable();
+  renderSuggested();
+  addChatMsg('bot', `Welcome to the <strong>CampusFest 2025 Sponsorship Growth Analyst</strong>!<br><br>I'm here to help you analyze campaign performance, track the pipeline, diagnose bottlenecks, and recommend actions — all grounded in your actual sponsorship data.<br><br>Try asking me: <em>"How are we doing overall?"</em> or pick a question from the sidebar.`);
+}
+init();
+</script>
+</body>
+</html>
